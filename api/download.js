@@ -7,7 +7,14 @@ class Downloader {
 
     constructor({ url, options }) {
         this.url = url;
-        this.options = options
+        this.options = options;
+    }
+
+    validate = async (callback) => {
+        const getUrl = () => { return this.url.split('=')[1] };
+        let isUrlValid = await ytdl.validateURL(this.url);
+        let isIdValid = await ytdl.validateID(getUrl());
+        callback((isUrlValid + isIdValid) - 1);
     }
 
     donwloadableUrl = async () => {
@@ -39,13 +46,20 @@ class Downloader {
     }
 
     download = async callback => {
-        let { url, path } = await this.donwloadableUrl();
-
-        const downloadable = this.createDownloadable(url, path, callback);
-        let { uri } = await downloadable.downloadAsync();
-
         await this.requestPermission();
-        await this.saveToGallery(uri);
+
+        this.validate(async res => {
+            console.log('response', res)
+            if (res) {
+                let { url, path } = await this.donwloadableUrl();
+
+                const downloadable = this.createDownloadable(url, path, callback);
+                let { uri } = await downloadable.downloadAsync();
+
+                await this.saveToGallery(uri);
+            }
+            else console.log('Validation error')
+        })
     }
 }
 
