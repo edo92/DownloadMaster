@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import AppLoading from 'expo-app-loading';
 
+import { Provider } from 'react-redux';
+import store from './store';
+
 import loader from './load';
 import Main from './view/Main';
 
 
 class App extends Component {
     state = {}
+
+    async componentDidMount() {
+        await loader.loadLibs();
+    }
 
     _onLoad = async () => {
         await loader.loadLibs();
@@ -32,7 +39,9 @@ class App extends Component {
         }
 
         return (
-            <Main />
+            <Provider store={store()}>
+                <Main />
+            </Provider>
         )
     }
 }
