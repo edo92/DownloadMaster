@@ -1,4 +1,6 @@
 import Downloader from '../../api/download';
+import helpers from '../../helpers';
+
 
 export const handleInputUrl = input => {
     return dispatch => {
@@ -24,16 +26,9 @@ export const handleSubmit = () => {
             selected: state.selected
         })
 
-        const getProgress = ({ totalBytesExpectedToWrite, totalBytesWritten }) => {
-            return {
-                total: totalBytesExpectedToWrite,
-                current: totalBytesWritten,
-                downloaded: (totalBytesWritten / totalBytesExpectedToWrite) * 100 //Convert to percentage
-            }
-        }
-
         await content.download(progress => {
-            dispatch({ type: 'SET_PROGRESS', payload: getProgress(progress) });
+            const parsed = helpers.parseProgress(progress);
+            dispatch({ type: 'SET_PROGRESS', payload: parsed });
         })
 
         dispatch({ type: 'STATUS_ONPROGRESS', payload: false });
