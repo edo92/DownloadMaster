@@ -1,66 +1,50 @@
-import * as MediaLibrary from 'expo-media-library';
-import * as FileSystem from 'expo-file-system';
 import ytdl from "react-native-ytdl";
+import System from '../helpers/system';
+import Validation from '../helpers/validation';
 
 
 class Downloader {
-
     constructor({ url, options }) {
         this.url = url;
         this.options = options;
     }
 
-    validate = async (callback) => {
-        const getUrl = () => { return this.url.split('=')[1] };
-        let isUrlValid = await ytdl.validateURL(this.url);
-        let isIdValid = await ytdl.validateID(getUrl());
-        callback((isUrlValid + isIdValid) - 1);
+    async downloadable(url, name) {
+        // Path where to save
+        const path = System.createPath(name);
+
+        // Get downloadable url
+        const urls = await ytdl(url, {
+            quality: 'highestvideo'
+        });
+
+        // Return path && downloadable url
+        return { path, url: urls[0].url }
     }
 
-    donwloadableUrl = async () => {
-        const urls = await ytdl(this.url, { quality: 'highestvideo' });
-        const path = `${FileSystem.cacheDirectory}imagexxx.mp4`;
-        return { url: urls[0].url, path: path };
-    }
+    async downloadAsync(callback) {
+        await System.requestPermission();
 
-    createDownloadable = (url, path, callback) => {
-        return FileSystem.createDownloadResumable(
-            url, path, {}, callback
-        );
-    }
+        // url input validate/sanitize
+        const validation = new Validation(this.url);
+        let isValid = await validation.validate();
 
-    saveToGallery = async uri => {
-        try {
-            await MediaLibrary.createAssetAsync(uri); // Save to gallery
-
-        } catch (err) {
-            console.log('Error saveing to gallery');
+        //
+        if (!isValid) {
+            return callback({ error: 'Url is not valid ' });
         }
-    }
 
-    requestPermission = async () => {
-        try {
-            await MediaLibrary.requestPermissionsAsync();  // Permission for andorid
-        }
-        catch (err) { console.log('permission error') }
-    }
+        // Create downloadble get back path and downloadable url
+        const { url, path } = await this.downloadable(this.url, 'xxxxx.mp4');
+        const dwable = await System.createDownloadable(url, path, callback);
 
-    download = async callback => {
-        await this.requestPermission();
+        // Donwload content && save
+        let { uri } = await dwable.downloadAsync();
+        await System.saveToGallery(uri);
 
-        this.validate(async res => {
-            console.log('response', res)
-            if (res) {
-                let { url, path } = await this.donwloadableUrl();
-
-                const downloadable = this.createDownloadable(url, path, callback);
-                let { uri } = await downloadable.downloadAsync();
-
-                await this.saveToGallery(uri);
-            }
-            else console.log('Validation error')
-        })
+        callback({ success: 'Saved' });
     }
 }
+
 
 export default Downloader;

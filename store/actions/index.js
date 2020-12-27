@@ -21,16 +21,24 @@ export const handleSubmit = () => {
         // Status on progress
         dispatch({ type: 'STATUS_ONPROGRESS', payload: true });
 
+        // Downloadable content
         const content = new Downloader({
             url: state.inputUrl,
             selected: state.selected
         })
 
-        await content.download(progress => {
+        // Donwlaod content
+        await content.downloadAsync(progress => {
+            if (progress.error) {
+                return { error: progress.error }
+            }
+
+            // Parse progress and set to state
             const parsed = helpers.parseProgress(progress);
             dispatch({ type: 'SET_PROGRESS', payload: parsed });
         })
 
+        // Set on progress false (at the end)
         dispatch({ type: 'STATUS_ONPROGRESS', payload: false });
     }
 }
