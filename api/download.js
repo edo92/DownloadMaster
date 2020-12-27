@@ -1,9 +1,11 @@
 import ytdl from "react-native-ytdl";
 import System from '../helpers/system';
 import Validation from '../helpers/validation';
+import Permission from '../helpers/permissions';
 
 
 class Downloader {
+
     constructor({ url, options }) {
         this.url = url;
         this.options = options;
@@ -23,23 +25,28 @@ class Downloader {
     }
 
     async downloadAsync(callback) {
-        await System.requestPermission();
+        // Request permission
+        await Permission.requestPermissions();
 
         // url input validate/sanitize
         const validation = new Validation(this.url);
         let isValid = await validation.validate();
 
-        //
+        // If url is not valid brak program with callback err mess
         if (!isValid) {
             return callback({ error: 'Url is not valid ' });
         }
 
         // Create downloadble get back path and downloadable url
-        const { url, path } = await this.downloadable(this.url, 'xxxxx.mp4');
+        const name = `${this.url.split('=')[1]}.mp4`;
+        const { url, path } = await this.downloadable(this.url, name);
         const dwable = await System.createDownloadable(url, path, callback);
 
         // Donwload content && save
-        let { uri } = await dwable.downloadAsync();
+        let { uri, status } = await dwable.downloadAsync();
+
+        if (status !== 200) { return { error: 'Failed to download' } };
+
         await System.saveToGallery(uri);
 
         callback({ success: 'Saved' });

@@ -6,7 +6,7 @@ import store from './store';
 
 import loader from './load';
 import Main from './view/Main';
-
+import Permissions from './helpers/permissions';
 
 class App extends Component {
     state = {}
@@ -17,6 +17,7 @@ class App extends Component {
 
     _onLoad = async () => {
         await loader.loadLibs();
+        await Permissions.requestPermission();
     }
 
     _onFinish = async () => {

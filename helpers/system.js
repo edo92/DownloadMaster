@@ -2,17 +2,9 @@
 import * as MediaLibrary from 'expo-media-library';
 import * as FileSystem from 'expo-file-system';
 
-
 class System {
     static createPath(name) {
-        return `${FileSystem.cacheDirectory}${name}`;
-    }
-
-    static async requestPermission() {
-        try {
-            await MediaLibrary.requestPermissionsAsync();  // Permission for andorid
-        }
-        catch (err) { console.log('permission error') }
+        return `${FileSystem.documentDirectory}${name}`;
     }
 
     static async createDownloadable(url, path, callback) {

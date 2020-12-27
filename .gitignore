@@ -16,3 +16,4 @@ DS_Store
 yarn.lock
 .vscode
 .expo-shared
+package-lock.json
