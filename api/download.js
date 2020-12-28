@@ -8,14 +8,14 @@ class Config {
 
     static getQuality(settings) {
         if (settings.format === 'MP4') {
-            if (settings.quality === 'High') {
+            if (settings.quality === 'Highest Quality') {
                 return 'highestvideo'
             } else {
                 return 'lowestvideo'
             }
         }
         else if (settings.format === 'MP3') {
-            if (settings.quality === 'High') {
+            if (settings.quality === 'Highest Quality') {
                 return 'highestaudio'
             }
             else {
@@ -36,7 +36,7 @@ class Downloader {
     async downloadable(url, name) {
         // Path where to save
         const path = System.createPath(name);
-
+        console.log('testing......', Config.getQuality(this.settings))
         // Get downloadable url
         const urls = await ytdl(url, {
             quality: Config.getQuality(this.settings)
@@ -63,6 +63,7 @@ class Downloader {
 
         // Create downloadble get back path and downloadable url
         const format = (this.settings.format).toLowerCase();
+        console.log('format', format)
         const name = `${contentId}.${format}`;
 
         const { url, path } = await this.downloadable(this.url, name);

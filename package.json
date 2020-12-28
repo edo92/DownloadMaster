@@ -8,7 +8,8 @@
         "eject": "expo eject"
     },
     "dependencies": {
-        "@ant-design/react-native": "4.0.6",
+        "@ant-design/react-native": "^4.0.6",
+        "antd-mobile-demo-data": "^0.3.0",
         "expo": "40.0.0",
         "expo-app-loading": "1.0.1",
         "expo-font": "8.4.0",

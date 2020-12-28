@@ -19,7 +19,7 @@ const DropdownPicker = props => {
                 <Picker.Item
                     key={index}
                     label={item}
-                    value={item.split(' ')[0]}
+                    value={item}
                 />
             ))}
         </Picker>
