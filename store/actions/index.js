@@ -24,7 +24,7 @@ export const handleSubmit = () => {
         // Downloadable content
         const content = new Downloader({
             url: state.inputUrl,
-            selected: state.selected
+            settings: state.selected
         })
 
         // Donwlaod content

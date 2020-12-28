@@ -5,8 +5,11 @@ class Validation {
         this.url = url;
     }
 
-    parseId = () => {
-        return this.url.split('=')[1]
+    async getId() {
+        try {
+            return await ytdl.getVideoID(this.url);
+
+        } catch (error) { console.log('Video id is not valid') }
     };
 
     getUrl() {
@@ -37,7 +40,7 @@ class Validation {
 
         return this.validateListAsync([
             await this.validateUrl(this.getUrl()),
-            await this.validateId(this.parseId())
+            await this.validateId(await this.getId())
         ])
     }
 }

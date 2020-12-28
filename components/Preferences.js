@@ -5,8 +5,10 @@ import DropdownPicker from './Picker';
 
 
 const Preferences = props => {
+    let opacity = props.onProgress ? 0.5 : 1;
+
     return (
-        <View style={styles.container, { opacity: props.onProgress ? 0.5 : 1 }}>
+        <View style={styles.container, { opacity }}>
             <Form style={styles.form}>
 
                 {preferenceOptions.map(({ items, name }) => (
@@ -27,7 +29,7 @@ const Preferences = props => {
 const preferenceOptions = [
     {
         name: 'quality',
-        items: ['High Quality', 'Mid Quality']
+        items: ['Highest Quality', 'Mid Quality']
     },
     {
         name: 'format',

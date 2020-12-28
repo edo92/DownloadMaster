@@ -4,12 +4,34 @@ import Validation from '../helpers/validation';
 import Permission from '../helpers/permissions';
 
 
+class Config {
+
+    static getQuality(settings) {
+        if (settings.format === 'MP4') {
+            if (settings.quality === 'High') {
+                return 'highestvideo'
+            } else {
+                return 'lowestvideo'
+            }
+        }
+        else if (settings.format === 'MP3') {
+            if (settings.quality === 'High') {
+                return 'highestaudio'
+            }
+            else {
+                return 'lowestaudio'
+            }
+        }
+    }
+}
+
 class Downloader {
 
-    constructor({ url, options }) {
+    constructor({ url, settings }) {
         this.url = url;
-        this.options = options;
+        this.settings = settings;
     }
+
 
     async downloadable(url, name) {
         // Path where to save
@@ -17,7 +39,7 @@ class Downloader {
 
         // Get downloadable url
         const urls = await ytdl(url, {
-            quality: 'highestvideo'
+            quality: Config.getQuality(this.settings)
         });
 
         // Return path && downloadable url
@@ -31,14 +53,18 @@ class Downloader {
         // url input validate/sanitize
         const validation = new Validation(this.url);
         let isValid = await validation.validate();
+        let contentId = validation.getId();
 
         // If url is not valid brak program with callback err mess
         if (!isValid) {
+            console.log('tesitng', isValid)
             return callback({ error: 'Url is not valid ' });
         }
 
         // Create downloadble get back path and downloadable url
-        const name = `${this.url.split('=')[1]}.mp4`;
+        const format = (this.settings.format).toLowerCase();
+        const name = `${contentId}.${format}`;
+
         const { url, path } = await this.downloadable(this.url, name);
         const dwable = await System.createDownloadable(url, path, callback);
 

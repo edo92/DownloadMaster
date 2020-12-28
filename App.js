@@ -8,6 +8,7 @@ import loader from './load';
 import Main from './view/Main';
 import Permissions from './helpers/permissions';
 
+
 class App extends Component {
     state = {}
 
