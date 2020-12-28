@@ -13,7 +13,6 @@ const Preferences = props => {
 
                 {preferenceOptions.map(({ items, name }) => (
                     <Item key={name} style={styles.item} picker>
-                        {console.log('tesitng..', props.selected[name])}
                         <DropdownPicker
                             {...props}
                             name={name} items={items}
@@ -21,7 +20,6 @@ const Preferences = props => {
                         />
                     </Item>
                 ))}
-
             </Form>
         </View>
     )

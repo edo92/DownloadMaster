@@ -1,19 +1,9 @@
 import ytdl from "react-native-ytdl";
 
 class Validation {
-    constructor(url) {
+    constructor(url, id) {
         this.url = url;
-    }
-
-    async getId() {
-        try {
-            return await ytdl.getVideoID(this.url);
-
-        } catch (error) { console.log('Video id is not valid') }
-    };
-
-    getUrl() {
-        return this.url;
+        this.id = id;
     }
 
     async validateUrl(id) {
@@ -24,6 +14,7 @@ class Validation {
     }
 
     async validateId(id) {
+        console.log('id', id)
         try {
             return await ytdl.validateID(id);
 
@@ -31,6 +22,7 @@ class Validation {
     }
 
     async validateListAsync(list) {
+        // Combine url and id output 
         return !list.reduce((a, b) => ((a + b) - 1), 0);
     }
 
@@ -39,8 +31,8 @@ class Validation {
         if (!this.url.trim().length) return false;
 
         return this.validateListAsync([
-            await this.validateUrl(this.getUrl()),
-            await this.validateId(await this.getId())
+            await this.validateUrl(this.url),
+            await this.validateId(this.id)
         ])
     }
 }
