@@ -14,8 +14,8 @@ class Validation {
     }
 
     async validateId(id) {
-        console.log('id', id)
         try {
+            console.log('id', id)
             return await ytdl.validateID(id);
 
         } catch (err) { console.log('validation error') }
@@ -23,6 +23,7 @@ class Validation {
 
     async validateListAsync(list) {
         // Combine url and id output 
+        console.log('list', list)
         return !list.reduce((a, b) => ((a + b) - 1), 0);
     }
 

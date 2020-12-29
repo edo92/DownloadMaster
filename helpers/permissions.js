@@ -3,8 +3,7 @@ import * as MediaLibrary from 'expo-media-library';
 
 class Permission {
     static async requestPermissions() {
-        let test = await permissions.MEDIA_LIBRARY_WRITE_ONLY;
-        console.log('test', test)
+        await permissions.MEDIA_LIBRARY_WRITE_ONLY;
     }
 }
 

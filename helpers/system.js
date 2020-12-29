@@ -14,11 +14,12 @@ class System {
     }
 
     static async saveToGallery(uri) {
+        console.log('xxx:', uri)
         try {
             await MediaLibrary.createAssetAsync(uri); // Save to gallery
 
         } catch (err) {
-            console.log('Error saveing to gallery');
+            console.log('Error saveing to gallery', err);
         }
     }
 }
