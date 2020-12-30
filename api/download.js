@@ -6,19 +6,19 @@ import Validation from '../helpers/validation';
 class Config {
 
     static getQuality(settings) {
-
+        console.log('settings', settings.format)
         const config = {
             mp4: {
-                Highest: 'highestvideo',
-                Lowest: 'lowestvideo'
+                high: 'highestvideo',
+                low: 'lowestvideo'
             },
             mp3: {
-                Highest: 'highestaudio',
-                Lowest: 'lowestaudio'
+                high: 'highestaudio',
+                low: 'lowestaudio'
             }
         }
 
-        let format = config[settings.format.toLowerCase()];
+        let format = config[settings.format];
         let quality = settings.quality.split(' ')[0];
 
         return format[quality];
@@ -52,6 +52,7 @@ class Downloader {
 
         try {
             // Get downloadable url
+            console.log('xxxx', Config.getQuality(this.settings))
             const urls = await ytdl(url, {
                 quality: Config.getQuality(this.settings)
             })

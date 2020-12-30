@@ -10,7 +10,7 @@ export const handleInputUrl = input => {
 
 export const handleSelect = opts => {
     return dispatch => {
-        dispatch({ type: 'SET_OPTIONS', payload: opts });
+        dispatch({ type: 'SET_OPTIONS', payload: opts.value });
     }
 }
 

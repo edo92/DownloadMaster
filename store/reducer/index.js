@@ -1,8 +1,8 @@
 const initialState = {
     inputUrl: '',
     selected: {
-        format: 'MP4',
-        quality: 'Highest Quality'
+        format: 'mp4',
+        quality: 'high'
     },
     progress: {
         total: 0,

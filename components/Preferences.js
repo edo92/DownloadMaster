@@ -1,49 +1,60 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { View, Form, Item } from 'native-base';
-import DropdownPicker from './Picker';
+import { View } from 'native-base';
+
+import IconMci from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconMat from 'react-native-vector-icons/MaterialIcons';
+
+import DropDownPicker from 'react-native-dropdown-picker';
 
 
 const Preferences = props => {
-    let opacity = props.onProgress ? 0.5 : 1;
-
     return (
-        <View style={styles.container, { opacity }}>
-            <Form style={styles.form}>
+        <View style={styles.constainer}>
+            {options.map(option => (
+                <View key={option.name} style={styles.picker}>
+                    <DropDownPicker
+                        items={option.items}
+                        defaultValue={props.selected[option.name]}
+                        onChangeItem={props.handleSelect}
 
-                {preferenceOptions.map(({ items, name }) => (
-                    <Item key={name} style={styles.item} picker>
-                        <DropdownPicker
-                            {...props}
-                            name={name} items={items}
-                            value={props.selected[name]}
-                        />
-                    </Item>
-                ))}
-            </Form>
+                        containerStyle={{ height: 40 }}
+                        itemStyle={{
+                            justifyContent: 'flex-start'
+                        }}
+                        dropDownStyle={{ backgroundColor: '#fafafa' }}
+                    />
+                </View>
+            ))}
         </View>
     )
 }
 
-const preferenceOptions = [
+const options = [
     {
         name: 'quality',
-        items: ['Highest Quality', 'Mid Quality']
+        items: [
+            { label: 'High Quality', value: 'high', icon: () => <IconMci name="quality-high" size={19} color="rgb(238,105,63)" /> },
+            { label: 'Mid Quality', value: 'low', icon: () => <IconMci name="quality-medium" size={19} color="rgb(238,105,63)" /> },
+        ]
     },
     {
         name: 'format',
-        items: ['MP3', 'MP4']
+        items: [
+            { label: 'MP4 Video', value: 'mp4', icon: () => <IconMci name="video" size={19} color="rgb(238,105,63)" /> },
+            { label: 'MP3 Audio', value: 'mp3', icon: () => <IconMat name="audiotrack" size={19} color="rgb(238,105,63)" /> },
+        ]
     }
 ]
 
 const styles = StyleSheet.create({
     constainer: {
         padding: 10,
-        paddingTop: 20
+        paddingTop: 20,
+        flexDirection: 'row'
     },
-    form: {
-        flexDirection: 'row',
-        padding: 10
+    picker: {
+        width: '50%'
     },
     item: {
         width: '50%'
