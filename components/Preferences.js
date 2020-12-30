@@ -10,19 +10,16 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 const Preferences = props => {
     return (
-        <View style={styles.constainer}>
+        <View style={styles.container}>
             {options.map(option => (
-                <View key={option.name} style={styles.picker}>
+                <View key={option.name} style={styles.dropDown}>
                     <DropDownPicker
                         items={option.items}
                         defaultValue={props.selected[option.name]}
                         onChangeItem={props.handleSelect}
-
-                        containerStyle={{ height: 40 }}
-                        itemStyle={{
-                            justifyContent: 'flex-start'
-                        }}
-                        dropDownStyle={{ backgroundColor: '#fafafa' }}
+                        containerStyle={styles.pickerContainer}
+                        itemStyle={styles.item}
+                        dropDownStyle={styles.dropDownStyle}
                     />
                 </View>
             ))}
@@ -48,16 +45,24 @@ const options = [
 ]
 
 const styles = StyleSheet.create({
-    constainer: {
-        padding: 10,
-        paddingTop: 20,
-        flexDirection: 'row'
+    container: {
+        padding: 8,
+        paddingTop: 8,
+        flexDirection: 'row',
     },
-    picker: {
+    dropDown: {
         width: '50%'
+    },
+    dropDownStyle: {
+        backgroundColor: '#fafafa'
+    },
+    pickerContainer: {
+        height: 40,
+        paddingRight: 2,
+        paddingLeft: 2
     },
     item: {
-        width: '50%'
+        justifyContent: 'flex-start'
     }
 })
 
