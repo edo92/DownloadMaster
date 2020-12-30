@@ -1,7 +1,6 @@
 import ytdl from "react-native-ytdl";
 import System from '../helpers/system';
 import Validation from '../helpers/validation';
-import Permission from '../helpers/permissions';
 
 
 class Config {
@@ -34,6 +33,11 @@ class Downloader {
         this.settings = settings;
     }
 
+    setContentName = () => {
+        const format = (this.settings.format).toLowerCase();
+        this.name = `${this.id}.${format}`;
+    }
+
     setContentId = async () => {
         try {
             // Parse content Id from url
@@ -42,18 +46,13 @@ class Downloader {
         } catch (error) { console.log('Video id is not valid') }
     }
 
-    setContentName = () => {
-        const format = (this.settings.format).toLowerCase();
-        this.name = `${this.id}.${format}`;
-    }
-
     downloadable = async (url, name) => {
         // Path where to save
         const path = System.createPath(name);
 
         try {
             // Get downloadable url
-            const urls = await ytdl(url, {//////////
+            const urls = await ytdl(url, {
                 quality: Config.getQuality(this.settings)
             })
 
@@ -66,34 +65,29 @@ class Downloader {
     }
 
     downloadAsync = async callback => {
-        // Request permission
-        await Permission.requestPermissions();
+        // Set Content id ->this.id
+        await this.setContentId();
 
-
-        await this.setContentId(); // Set Content id ->this.id
-        this.setContentName(); // Content name with extension
+        // Content name with extension
+        this.setContentName();
 
         // Validate url input
         const validation = new Validation(this.url, this.id);
         let isValid = await validation.validate();
-        console.log('testing...', isValid)
 
         // If Validation failed
         if (!isValid) {
-
-            return callback({ error: 'Url is not valid ' });
+            return callback({ error: 'Url is not valid' });
         }
 
         // Create Downloadable
         const { url, path } = await this.downloadable(this.url, this.name);
-
         const dwable = await System.createDownloadable(url, path, callback);
 
         // Download Content
         let { uri, status } = await dwable.downloadAsync();
         if (status !== 200) { return { error: 'Failed to download' } };
 
-        console.log('2222:', uri)
         // Save content to gallery
         await System.saveToGallery(uri);
 

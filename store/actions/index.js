@@ -14,6 +14,12 @@ export const handleSelect = opts => {
     }
 }
 
+export const setPermissionStatus = status => {
+    return dispatch => {
+        dispatch({ type: 'SET_PERMISSION_STATE', payload: status });
+    }
+}
+
 export const handleSubmit = () => {
     return async (dispatch, getState) => {
         const state = getState().main;
@@ -40,5 +46,8 @@ export const handleSubmit = () => {
 
         // Set on progress false (at the end)
         dispatch({ type: 'STATUS_ONPROGRESS', payload: false });
+
+        // Clean up input url
+        dispatch({ type: 'URL_INPUT' });
     }
 }

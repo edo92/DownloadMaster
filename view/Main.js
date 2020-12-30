@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Header from '../components/Header';
@@ -7,6 +7,9 @@ import Progress from '../components/Progress';
 import Preferences from '../components/Preferences';
 import ViewContainer from '../components/ViewContainer';
 
+import Permissions from '../helpers/permissions';
+import { setPermissionStatus } from '../store/actions';
+
 import { // store actions
     handleInputUrl,
     handleSubmit,
@@ -14,29 +17,41 @@ import { // store actions
 } from '../store/actions';
 
 
-const MainView = props => (
-    <ViewContainer>
-        <Header title='Download Master' />
+class MainView extends Component {
 
-        <InputForm {...props} />
+    async componentDidMount() {
+        const status = await Permissions.requestPermissions();
+        this.props.setPermissionStatus(status);
+    }
 
-        <Progress percent={props.progress} />
+    render() {
+        return (
+            <ViewContainer>
+                <Header title='Download Master' />
 
-        <Preferences {...props} />
+                <InputForm {...this.props} />
 
-    </ViewContainer>
-)
+                <Progress percent={this.props.progress} />
 
+                <Preferences {...this.props} />
+
+            </ViewContainer>
+        )
+    }
+}
 const mapStateToProps = state => {
     return {
+        inputUrl: state.main.inputUrl,
         selected: state.main.selected,
         progress: state.main.progress.downloaded,
-        onProgress: state.main.onProgress
+        onProgress: state.main.onProgress,
+        permissions: state.main.permissions
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
+        setPermissionStatus: st => dispatch(setPermissionStatus(st)),
         handleInputUrl: input => dispatch(handleInputUrl(input)),
         handleSelect: opts => dispatch(handleSelect(opts)),
         handleSubmit: () => dispatch(handleSubmit())

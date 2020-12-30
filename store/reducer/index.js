@@ -17,7 +17,7 @@ const reducer = (state = initialState, action) => {
         case 'URL_INPUT': {
             return {
                 ...state,
-                inputUrl: action.payload
+                inputUrl: action.payload || ''
             }
         }
 
@@ -42,6 +42,13 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 onProgress: action.payload
+            }
+        }
+
+        case 'SET_PERMISSION_STATE': {
+            return {
+                ...state,
+                permissions: action.payload
             }
         }
 

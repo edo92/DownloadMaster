@@ -12,6 +12,7 @@ const InputForm = props => (
                 style={styles.input}
                 disabled={props.onProgress}
                 onChangeText={props.handleInputUrl}
+                value={props.inputUrl}
             />
 
             <CustomButton

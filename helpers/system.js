@@ -4,7 +4,7 @@ import * as FileSystem from 'expo-file-system';
 
 class System {
     static createPath(name) {
-        return `${FileSystem.documentDirectory}${name}`;
+        return `${FileSystem.cacheDirectory}${name}`;
     }
 
     static async createDownloadable(url, path, callback) {
@@ -14,12 +14,11 @@ class System {
     }
 
     static async saveToGallery(uri) {
-        console.log('xxx:', uri)
         try {
             await MediaLibrary.createAssetAsync(uri); // Save to gallery
 
         } catch (err) {
-            console.log('Error saveing to gallery', err);
+            console.log('Error saveing to gallery');
         }
     }
 }

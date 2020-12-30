@@ -1,9 +1,10 @@
-import * as permissions from 'expo-permissions';
-import * as MediaLibrary from 'expo-media-library';
+import * as Permissions from 'expo-permissions';
 
 class Permission {
-    static async requestPermissions() {
-        await permissions.MEDIA_LIBRARY_WRITE_ONLY;
+    static async requestPermissions(platform) {
+        // Permission based on platform
+        const permType = platform ? 'MEDIA_LIBRARY' : 'MEDIA_LIBRARY_WRITE_ONLY';
+        await Permissions.askAsync(Permissions[permType]); // Request permission
     }
 }
 

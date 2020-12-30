@@ -18,7 +18,7 @@ class App extends Component {
 
     _onLoad = async () => {
         await loader.loadLibs();
-        await Permissions.requestPermission();
+        await Permissions.requestPermissions();
     }
 
     _onFinish = async () => {
