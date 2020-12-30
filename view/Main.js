@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Platform } from 'react-native';
 import { connect } from 'react-redux';
 
 import Header from '../components/Header';
@@ -20,7 +21,11 @@ import { // store actions
 class MainView extends Component {
 
     async componentDidMount() {
-        const status = await Permissions.requestPermissions();
+        await this.requestPermissions();
+    }
+
+    async requestPermissions() {
+        const status = await Permissions.requestPermissions(Platform.OS);
         this.props.setPermissionStatus(status);
     }
 
