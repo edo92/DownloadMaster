@@ -11,18 +11,15 @@ const progress = percent => {
 const ProgressBar = props => (
     <View style={styles.container}>
         <Progress
-            percent={progress(props.percent)}
-            barStyle={styles.progress}
+            percent={Math.floor(props.progress)}
+            barStyle={styles.progress || 0}
         />
     </View>
 )
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 7,
-        paddingBottom: 5,
-        paddingLeft: 12,
-        paddingRight: 12,
+        padding: 10
     },
     progress: {
         borderColor: '#ee693fd6',

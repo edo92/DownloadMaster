@@ -8,7 +8,7 @@ const InputForm = props => (
     <View style={styles.container}>
         <View style={styles.wrapper}>
 
-            <Input placeholder='Regular Textbox'
+            <Input placeholder='past video url'
                 style={styles.input}
                 disabled={props.onProgress}
                 onChangeText={props.handleInputUrl}

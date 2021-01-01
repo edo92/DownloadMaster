@@ -22,6 +22,7 @@ class Validation {
 
     async validateListAsync(list) {
         // Combine url and id output 
+        console.log('list', list)
         return !list.reduce((a, b) => ((a + b) - 1), 0);
     }
 

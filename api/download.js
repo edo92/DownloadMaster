@@ -29,13 +29,13 @@ class Config {
 class Downloader {
 
     constructor({ url, settings }) {
-        this.url = url;
+        this.url = url.trim();
         this.settings = settings;
     }
 
     setContentName = () => {
         const format = (this.settings.format).toLowerCase();
-        this.name = `${this.id}.${format}`;
+        this.filename = `${this.id}.${format}`;
     }
 
     setContentId = async () => {
@@ -48,41 +48,43 @@ class Downloader {
 
     downloadable = async (url, name) => {
         // Path where to save
-        const path = System.createPath(name);
+        this.path = System.createPath(name);
 
         try {
             // Get downloadable url
-            console.log('xxxx', Config.getQuality(this.settings))
             const urls = await ytdl(url, {
                 quality: Config.getQuality(this.settings)
             })
 
             // Return path && downloadable url
-            return { path, url: urls[0].url };
+            return { path: this.path, url: urls[0].url };
 
         } catch (err) {
             console.log('Unable to create downloadable');
         }
     }
 
-    downloadAsync = async callback => {
-        // Set Content id ->this.id
-        await this.setContentId();
+    initialize = async () => {
+        await this.setContentId(); // Set Content id ->this.id
+        await this.setContentName(); // Content name with ext
+    }
 
-        // Content name with extension
-        this.setContentName();
+    getBasicInfo = async callback => {
+        const thumbnail = `https://img.youtube.com/vi/${this.id}/0.jpg`;
+        callback({ thumbnail });
+    }
+
+    validate = async () => {
+        await this.initialize();
 
         // Validate url input
         const validation = new Validation(this.url, this.id);
-        let isValid = await validation.validate();
+        return await validation.validate();
+    }
 
-        // If Validation failed
-        if (!isValid) {
-            return callback({ error: 'Url is not valid' });
-        }
-
+    downloadAsync = async callback => {
         // Create Downloadable
-        const { url, path } = await this.downloadable(this.url, this.name);
+        const { url, path } = await this.downloadable(this.url, this.filename);
         const dwable = await System.createDownloadable(url, path, callback);
 
         // Download Content

@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 
 import Header from '../components/Header';
 import InputForm from '../components/InputForm';
-import Progress from '../components/Progress';
 import Preferences from '../components/Preferences';
 import ViewContainer from '../components/ViewContainer';
-
+import History from '../components/History';
 import Permissions from '../helpers/permissions';
 import { setPermissionStatus } from '../store/actions';
 
@@ -36,21 +35,22 @@ class MainView extends Component {
 
                 <InputForm {...this.props} />
 
-                <Progress percent={this.props.progress} />
-
                 <Preferences {...this.props} />
 
+                <History {...this.props} />
             </ViewContainer>
         )
     }
 }
 const mapStateToProps = state => {
+    // console.log('history', state.main.history)
     return {
         inputUrl: state.main.inputUrl,
         selected: state.main.selected,
         progress: state.main.progress.downloaded,
         onProgress: state.main.onProgress,
-        permissions: state.main.permissions
+        permissions: state.main.permissions,
+        history: state.main.history
     }
 }
 

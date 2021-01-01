@@ -24,8 +24,8 @@ export const handleSubmit = () => {
     return async (dispatch, getState) => {
         const state = getState().main;
 
-        // Status on progress
-        dispatch({ type: 'STATUS_ONPROGRESS', payload: true });
+        // Clean up input url
+        dispatch({ type: 'URL_INPUT' });
 
         // Downloadable content
         const content = new Downloader({
@@ -33,21 +33,30 @@ export const handleSubmit = () => {
             settings: state.selected
         })
 
+        // Validate content (url)
+        const isValid = await content.validate();
+        if (!isValid) return; // Brake on invalid url
+
+
+        // Save baseic info of the content to state
+        await content.getBasicInfo(info => {
+            dispatch({  // Add content info to history
+                type: 'ADD_TO_HISTORY',
+                payload: { info, content }
+            })
+        })
+
         // Donwlaod content
         await content.downloadAsync(progress => {
-            if (progress.error) {
-                return { error: progress.error }
-            }
+            if (progress.error) return;
 
             // Parse progress and set to state
             const parsed = helpers.parseProgress(progress);
-            dispatch({ type: 'SET_PROGRESS', payload: parsed });
+            const payload = { progress: parsed, id: content.id };
+
+            if (parsed) {
+                dispatch({ type: 'SET_PROGRESS', payload });
+            }
         })
-
-        // Set on progress false (at the end)
-        dispatch({ type: 'STATUS_ONPROGRESS', payload: false });
-
-        // Clean up input url
-        dispatch({ type: 'URL_INPUT' });
     }
 }
