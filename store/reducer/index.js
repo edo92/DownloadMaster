@@ -11,17 +11,7 @@ const initialState = {
     },
     onProgress: false,
     history: {
-        // xxzzyy: {
-        //     content: {
-        //         settings: {
-        //             "format": "mp4",
-        //             "quality": "high",
-        //         },
-        //     },
-        //     info: {
-        //         thumbnail: 'https://img.youtube.com/vi/nQbMlMLqwz8/0.jpg'
-        //     }
-        // }
+
     }
 }
 
@@ -71,13 +61,24 @@ const reducer = (state = initialState, action) => {
             }
         }
 
+        case 'SET_HISTORY_LIST': {
+            return {
+                ...state,
+                history: action.payload
+            }
+        }
+
         case 'ADD_TO_HISTORY': {
-            const { id } = action.payload.content;
+            const { id } = action.payload;
             return {
                 ...state,
                 history: {
                     ...state.history,
-                    [id]: { ...action.payload, progress: { downloaded: 0 } }
+                    [id]: {
+                        ...state.history[id],
+                        ...action.payload,
+                        progress: { downloaded: 0 }
+                    }
                 }
             }
         }

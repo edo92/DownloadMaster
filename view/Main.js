@@ -8,12 +8,13 @@ import Preferences from '../components/Preferences';
 import ViewContainer from '../components/ViewContainer';
 import History from '../components/History';
 import Permissions from '../helpers/permissions';
-import { setPermissionStatus } from '../store/actions';
 
 import { // store actions
     handleInputUrl,
     handleSubmit,
-    handleSelect
+    handleSelect,
+    setPermissionStatus,
+    getSavedList
 } from '../store/actions';
 
 
@@ -21,6 +22,7 @@ class MainView extends Component {
 
     async componentDidMount() {
         await this.requestPermissions();
+        await this.props.getSavedList();
     }
 
     async requestPermissions() {
@@ -59,7 +61,8 @@ const mapDispatchToProps = dispatch => {
         setPermissionStatus: st => dispatch(setPermissionStatus(st)),
         handleInputUrl: input => dispatch(handleInputUrl(input)),
         handleSelect: opts => dispatch(handleSelect(opts)),
-        handleSubmit: () => dispatch(handleSubmit())
+        handleSubmit: () => dispatch(handleSubmit()),
+        getSavedList: () => dispatch(getSavedList())
     }
 }
 

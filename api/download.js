@@ -1,7 +1,7 @@
 import ytdl from "react-native-ytdl";
 import System from '../helpers/system';
 import Validation from '../helpers/validation';
-
+import axios from 'axios';
 
 class Config {
 
@@ -33,6 +33,12 @@ class Downloader {
         this.settings = settings;
     }
 
+    initialize = async () => {
+        await this.setContentId(); // Set Content id ->this.id
+        await this.setContentName(); // Content name with ext
+        await this.setContentTitle(); // Content title
+    }
+
     setContentName = () => {
         const format = (this.settings.format).toLowerCase();
         this.filename = `${this.id}.${format}`;
@@ -44,6 +50,11 @@ class Downloader {
             this.id = await ytdl.getVideoID(this.url);
 
         } catch (error) { console.log('Video id is not valid') }
+    }
+
+    setContentTitle = async () => {
+        const content = await axios.get(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${this.id}`);
+        this.title = content.data.title;
     }
 
     downloadable = async (url, name) => {
@@ -64,14 +75,9 @@ class Downloader {
         }
     }
 
-    initialize = async () => {
-        await this.setContentId(); // Set Content id ->this.id
-        await this.setContentName(); // Content name with ext
-    }
-
-    getBasicInfo = async callback => {
+    getBasicInfo = async () => {
         const thumbnail = `https://img.youtube.com/vi/${this.id}/0.jpg`;
-        callback({ thumbnail });
+        return { thumbnail, title: this.title, id: this.id, url: this.url, ...this.settings };
     }
 
     validate = async () => {

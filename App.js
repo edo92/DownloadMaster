@@ -7,6 +7,14 @@ import store from './store';
 import loader from './load';
 import Main from './view/Main';
 import Permissions from './helpers/permissions';
+import { initDb } from './helpers/db';
+
+
+initDb().then(() => {
+    console.log('database connected');
+}).catch(err => {
+    console.log('db error', err)
+})
 
 
 class App extends Component {
@@ -37,7 +45,7 @@ class App extends Component {
                     onFinish={this._onFinish}
                     onError={this._onError}
                 />
-            );
+            )
         }
 
         return (

@@ -18,3 +18,4 @@ yarn.lock
 .expo-shared
 package-lock.json
 debug.log
+.env

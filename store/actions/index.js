@@ -1,6 +1,6 @@
 import Downloader from '../../api/download';
 import helpers from '../../helpers';
-
+import { dropDatabase, fetchList, insertList } from '../../helpers/db';
 
 export const handleInputUrl = input => {
     return dispatch => {
@@ -17,6 +17,25 @@ export const handleSelect = opts => {
 export const setPermissionStatus = status => {
     return dispatch => {
         dispatch({ type: 'SET_PERMISSION_STATE', payload: status });
+    }
+}
+
+export const getSavedList = () => {
+    return async dispatch => {
+        // Conver arr to obj -> id:data
+        const convObj = arr => {
+            let list = {};
+            arr.map((item, i) => {
+                list[item.content] = arr[i];
+            })
+            return list;
+        }
+
+        // Fetch all db data(list)
+        const savedList = await fetchList();
+        const list = convObj(savedList.rows._array);
+
+        dispatch({ type: 'SET_HISTORY_LIST', payload: list });
     }
 }
 
@@ -39,12 +58,9 @@ export const handleSubmit = () => {
 
 
         // Save baseic info of the content to state
-        await content.getBasicInfo(info => {
-            dispatch({  // Add content info to history
-                type: 'ADD_TO_HISTORY',
-                payload: { info, content }
-            })
-        })
+        const info = await content.getBasicInfo();
+        console.log('info---', info)
+        dispatch({ type: 'ADD_TO_HISTORY', payload: info });
 
         // Donwlaod content
         await content.downloadAsync(progress => {
@@ -58,5 +74,7 @@ export const handleSubmit = () => {
                 dispatch({ type: 'SET_PROGRESS', payload });
             }
         })
+
+        await insertList(info); // Save to db after downloaded
     }
 }

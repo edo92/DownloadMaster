@@ -33,23 +33,23 @@ class History extends Component {
 
         return (
             <View style={styles.container}>
-                {/* <Text style={{ fontSize: 20, padding: 5, paddingLeft: 10 }}>History</Text>
-                <View style={{ borderWidth: 1, borderColor: '#c7c7c757' }}></View> */}
-
                 {historyList && historyList.map((item, index) => {
                     const content = this.props.history[item];
 
                     return (
                         <View key={index} style={styles.listItem} itemDivider>
-                            <ShowImage imageUri={content.info.thumbnail} />
+                            <ShowImage imageUri={content.thumbnail} />
 
                             <View style={styles.infoContainer}>
+                                <View style={{ alignItems: 'center' }}>
+                                    <Text style={styles.title}>{content.title}</Text>
+                                </View>
                                 <View style={styles.contentInfo}>
                                     <Show label={'Source'} icon={<Icon name={'youtube'} />} />
-                                    <Show label={Helpers.capFirstChar(content.content.settings.format)} />
-                                    <Show label={`${Helpers.firstChar(content.content.settings.quality)}Q`} />
+                                    <Show label={Helpers.capFirstChar(content.format)} />
+                                    <Show label={`${Helpers.firstChar(content.quality)}Q`} />
                                 </View>
-                                <Progress progress={content.progress.downloaded} />
+                                <Progress progress={content.progress && content.progress.downloaded} />
                             </View>
                         </View>
                     )
@@ -62,6 +62,7 @@ class History extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingTop: 65
     },
     listItem: {
         flexDirection: 'row',
@@ -89,8 +90,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-        fontSize: 12,
-        fontWeight: '700'
+        fontSize: 15,
+        fontWeight: '600'
     },
     contentInfo: {
         flexDirection: 'row',
