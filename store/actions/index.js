@@ -1,5 +1,7 @@
-import Downloader from '../../api/download';
-import helpers from '../../helpers';
+import { System } from '../../helpers';
+import { dropDatabase, fetchList, insertList } from '../../helpers/db';
+import Downloader from '../../libs/downloader';
+import * as MediaLibrary from 'expo-media-library';
 
 
 export const handleInputUrl = input => {
@@ -20,34 +22,50 @@ export const setPermissionStatus = status => {
     }
 }
 
+export const getSavedList = () => {
+    return async dispatch => {
+        // Conver arr to obj -> id:data
+        const convObj = arr => {
+            let list = {};
+            arr.map((item, i) => {
+                list[item.content] = arr[i];
+            })
+            return list;
+        }
+
+        // Fetch all db data(list)
+        const savedList = await fetchList();
+        const list = convObj(savedList.rows._array);
+
+        dispatch({ type: 'SET_HISTORY_LIST', payload: list });
+    }
+}
+
 export const handleSubmit = () => {
     return async (dispatch, getState) => {
         const state = getState().main;
 
-        // Status on progress
-        dispatch({ type: 'STATUS_ONPROGRESS', payload: true });
-
-        // Downloadable content
+        // Initialize ytl donwlaoder
         const content = new Downloader({
             url: state.inputUrl,
             settings: state.selected
         })
 
-        // Donwlaod content
-        await content.downloadAsync(progress => {
-            if (progress.error) {
-                return { error: progress.error }
-            }
+        // Content information
+        const info = await content.getContentInfo();
 
-            // Parse progress and set to state
-            const parsed = helpers.parseProgress(progress);
-            dispatch({ type: 'SET_PROGRESS', payload: parsed });
+        // Add content info to state history
+        dispatch({ type: 'ADD_TO_HISTORY', payload: info });
+
+        // Download content
+        let file = await content.downloadAsync(progress => {
+            dispatch({
+                type: 'SET_PROGRESS',
+                payload: { progress, id: info.id }
+            })
         })
 
-        // Set on progress false (at the end)
-        dispatch({ type: 'STATUS_ONPROGRESS', payload: false });
-
-        // Clean up input url
-        dispatch({ type: 'URL_INPUT' });
+        await MediaLibrary.createAssetAsync(file.uri);
+        await insertList(info); // Save to db after downloaded
     }
 }
