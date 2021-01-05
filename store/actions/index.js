@@ -1,6 +1,8 @@
-import Downloader from '../../api/download';
-import helpers from '../../helpers';
+import { System } from '../../helpers';
 import { dropDatabase, fetchList, insertList } from '../../helpers/db';
+import Downloader from '../../libs/downloader';
+import * as MediaLibrary from 'expo-media-library';
+
 
 export const handleInputUrl = input => {
     return dispatch => {
@@ -43,38 +45,27 @@ export const handleSubmit = () => {
     return async (dispatch, getState) => {
         const state = getState().main;
 
-        // Clean up input url
-        dispatch({ type: 'URL_INPUT' });
-
-        // Downloadable content
+        // Initialize ytl donwlaoder
         const content = new Downloader({
             url: state.inputUrl,
             settings: state.selected
         })
 
-        // Validate content (url)
-        const isValid = await content.validate();
-        if (!isValid) return; // Brake on invalid url
+        // Content information
+        const info = await content.getContentInfo();
 
-
-        // Save baseic info of the content to state
-        const info = await content.getBasicInfo();
-        console.log('info---', info)
+        // Add content info to state history
         dispatch({ type: 'ADD_TO_HISTORY', payload: info });
 
-        // Donwlaod content
-        await content.downloadAsync(progress => {
-            if (progress.error) return;
-
-            // Parse progress and set to state
-            const parsed = helpers.parseProgress(progress);
-            const payload = { progress: parsed, id: content.id };
-
-            if (parsed) {
-                dispatch({ type: 'SET_PROGRESS', payload });
-            }
+        // Download content
+        let file = await content.downloadAsync(progress => {
+            dispatch({
+                type: 'SET_PROGRESS',
+                payload: { progress, id: info.id }
+            })
         })
 
+        await MediaLibrary.createAssetAsync(file.uri);
         await insertList(info); // Save to db after downloaded
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Input } from 'native-base';
-import CustomButton from './CustomButton';
+import { CustomButton } from './CustomComponents';
 
 
 const InputForm = props => (

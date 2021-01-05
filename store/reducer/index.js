@@ -35,13 +35,16 @@ const reducer = (state = initialState, action) => {
         }
 
         case 'SET_PROGRESS': {
+            let dwl = action.payload.progress.downloaded;
+            let progress = dwl === 100 ? dwl = 0 : action.payload.progress;
+
             return {
                 ...state,
                 history: {
                     ...state.history,
                     [action.payload.id]: {
                         ...state.history[action.payload.id],
-                        progress: action.payload.progress
+                        progress: progress
                     }
                 }
             }
@@ -72,6 +75,7 @@ const reducer = (state = initialState, action) => {
             const { id } = action.payload;
             return {
                 ...state,
+                inputUrl: '',
                 history: {
                     ...state.history,
                     [id]: {

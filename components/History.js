@@ -1,62 +1,27 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
-import IconMci from 'react-native-vector-icons/MaterialCommunityIcons';
-
-import Helpers from '../helpers';
-import Progress from './Progress';
+import React from 'react';
+import { StyleSheet, View, FlatList } from 'react-native';
+import Content from './Content';
 
 
-const Show = props => (
-    <View style={{ flexDirection: 'row' }}>
-        <Text style={{ fontWeight: '700' }}>{props.label}</Text>
-        {props.icon}
-    </View>
-)
+const History = ({ history }) => {
 
-const ShowImage = props => (
-    <View style={styles.imageContainer}>
-        <Image
-            style={styles.image}
-            source={{ uri: props.imageUri }}
-        />
-    </View>
-)
-
-const Icon = props => (
-    <IconMci style={styles.icon} name={props.name} size={21} color="red" />
-)
-
-
-class History extends Component {
-    render() {
-        let historyList = Object.keys(this.props.history);
-
+    const showContent = content => {
         return (
-            <View style={styles.container}>
-                {historyList && historyList.map((item, index) => {
-                    const content = this.props.history[item];
-
-                    return (
-                        <View key={index} style={styles.listItem} itemDivider>
-                            <ShowImage imageUri={content.thumbnail} />
-
-                            <View style={styles.infoContainer}>
-                                <View style={{ alignItems: 'center' }}>
-                                    <Text style={styles.title}>{content.title}</Text>
-                                </View>
-                                <View style={styles.contentInfo}>
-                                    <Show label={'Source'} icon={<Icon name={'youtube'} />} />
-                                    <Show label={Helpers.capFirstChar(content.format)} />
-                                    <Show label={`${Helpers.firstChar(content.quality)}Q`} />
-                                </View>
-                                <Progress progress={content.progress && content.progress.downloaded} />
-                            </View>
-                        </View>
-                    )
-                })}
-            </View >
+            <Content content={history[content.item]} />
         )
     }
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.listItem} itemDivider>
+                <FlatList
+                    data={Object.keys(history)}
+                    renderItem={showContent}
+                    keyExtractor={item => item}
+                />
+            </View>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({

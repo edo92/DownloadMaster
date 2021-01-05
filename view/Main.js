@@ -26,8 +26,10 @@ class MainView extends Component {
     }
 
     async requestPermissions() {
-        const status = await Permissions.requestPermissions(Platform.OS);
-        this.props.setPermissionStatus(status);
+        if (!this.props.permissions) {
+            const status = await Permissions.requestPermissions(Platform.OS);
+            this.props.setPermissionStatus(status);
+        }
     }
 
     render() {
@@ -45,7 +47,6 @@ class MainView extends Component {
     }
 }
 const mapStateToProps = state => {
-    // console.log('history', state.main.history)
     return {
         inputUrl: state.main.inputUrl,
         selected: state.main.selected,
