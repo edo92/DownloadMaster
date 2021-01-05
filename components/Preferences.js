@@ -4,7 +4,6 @@ import { View } from 'native-base';
 
 import IconMci from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMat from 'react-native-vector-icons/MaterialIcons';
-
 import DropDownPicker from 'react-native-dropdown-picker';
 
 

@@ -8,7 +8,7 @@
         "eject": "expo eject"
     },
     "dependencies": {
-        "@ant-design/icons-react-native": "^2.2.1",
+   "@ant-design/icons-react-native": "^2.2.1",
         "@ant-design/react-native": "^4.0.6",
         "@react-native-picker/picker": "^1.9.8",
         "axios": "^0.21.1",
@@ -31,12 +31,6 @@
         "redux": "4.0.5",
         "redux-thunk": "2.3.0",
         "rimraf": "^3.0.2"
-    },
-    "devDependencies": {
-        "@babel/core": "~7.9.0",
-        "react-devtools": "^4.10.1",
-        "react-native-dotenv": "^2.4.3",
-        "tslib": "^2.0.3"
     },
     "private": true
 }
