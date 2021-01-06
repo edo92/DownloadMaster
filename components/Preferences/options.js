@@ -14,7 +14,6 @@ const options = [
     },
     {
         name: 'format',
-        style: { paddingLeft: 2 },
         items: [
             { label: 'MP4 Video', value: 'mp4', icon: () => <IconMci name="video" size={19} color="rgb(238,105,63)" /> },
             { label: 'MP3 Audio', value: 'mp3', icon: () => <IconMat name="audiotrack" size={19} color="rgb(238,105,63)" /> },

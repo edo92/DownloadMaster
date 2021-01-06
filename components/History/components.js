@@ -86,12 +86,12 @@ const styles = StyleSheet.create({
     },
 
     fontStyle: {
-        fontFamily: 'sans-serif-medium',
+        fontFamily: 'sans-serif-bold',
         color: '#000'
     },
 
     button: {
-        height: 22,
+        height: 30,
         width: 35,
         marginLeft: 10,
         backgroundColor: '#ffff',

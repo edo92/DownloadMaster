@@ -14,13 +14,13 @@ class Loader {
         );
 
         await Font.loadAsync(
-            'roboto-mono-italic',
-            require('../assets/fonts/RobotoMono-Italic-VariableFont_wght.ttf')
+            'sans-serif',
+            require('../assets/fonts/OpenSans-Regular.ttf')
         );
 
         await Font.loadAsync(
-            'roboto-mono',
-            require('../assets/fonts/RobotoMono-VariableFont_wght.ttf')
+            'sans-serif-bold',
+            require('../assets/fonts/OpenSans-Bold.ttf')
         );
     }
 }
