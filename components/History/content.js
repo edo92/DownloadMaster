@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import { Show, Progress, ContentInfo } from './components';
+import { Show, Progress, ContentInfo, ActionPanel } from './components';
 import Helpers from '../../helpers/basic';
 
+
+const testswitch = true;
 
 const Content = props => {
     return (
@@ -16,8 +18,10 @@ const Content = props => {
 
             <View style={styles.infoContainer}>
                 <Show label={Helpers.longText(props.content.title, 28)} />
-                <ContentInfo content={props.content} />
-                <Progress progress={50} />
+
+                <ContentInfo extraspace={testswitch} content={props.content} />
+
+                {testswitch ? (<Progress progress={50} />) : (<ActionPanel />)}
             </View>
         </View>
     )
@@ -37,6 +41,7 @@ const styles = StyleSheet.create({
         borderRadius: 3,
         padding: 2
     },
+
     image: {
         borderRadius: 2,
         minWidth: 155,
@@ -46,8 +51,8 @@ const styles = StyleSheet.create({
 
     infoContainer: {
         padding: 10
-    },
-
+    }
 })
+
 
 export default Content;

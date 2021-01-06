@@ -3,6 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import IconMci from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntdProgress from '@ant-design/react-native/lib/progress';
 import helpers from '../../helpers/basic';
+import { Button } from 'native-base';
 
 
 export const Icon = props => {
@@ -31,7 +32,10 @@ export const Progress = props => (
 )
 
 export const ContentInfo = props => (
-    <View style={styles.selectedOpts}>
+    <View style={{
+        ...styles.selectedOpts,
+        ...styles[props.extraspace ? 'extraspace' : 'minspace']
+    }}>
         <Show
             label={'Source'} icon={<Icon name={'youtube'} />}
         />
@@ -43,6 +47,18 @@ export const ContentInfo = props => (
             label={`${helpers.firstChar(props.content.quality)}Q`}
             icon={<Icon name={'quality-high'} color='#EE693F' />}
         />
+    </View>
+)
+
+export const ActionPanel = () => (
+    <View style={styles.flexRow}>
+        <Button style={styles.button}>
+            <Icon style={styles.icon} name='play' size={21} color="#343434" />
+        </Button>
+
+        <Button style={styles.button}>
+            <Icon style={styles.icon, { fontSize: 19 }} name='delete' size={21} color="#343434" />
+        </Button>
     </View>
 )
 
@@ -66,12 +82,25 @@ const styles = StyleSheet.create({
     selectedOpts: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingTop: 15,
-        paddingBottom: 15
+        paddingTop: 10
     },
 
     fontStyle: {
         fontFamily: 'sans-serif-medium',
         color: '#000'
+    },
+
+    button: {
+        height: 22,
+        width: 35,
+        marginLeft: 10,
+        backgroundColor: '#ffff',
+        justifyContent: 'center'
+    },
+    extraspace: {
+        paddingBottom: 17
+    },
+    minspace: {
+        paddingBottom: 8
     }
 })

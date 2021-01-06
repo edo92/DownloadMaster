@@ -1,5 +1,6 @@
 import * as Font from 'expo-font';
 
+
 class Loader {
     static async loadLibs() {
         await Font.loadAsync(
