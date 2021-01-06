@@ -31,6 +31,12 @@ export const Progress = props => (
     </View>
 )
 
+export const Title = props => (
+    <View>
+        <Text style={styles.title}>{props.title}</Text>
+    </View>
+)
+
 export const ContentInfo = props => (
     <View style={{
         ...styles.selectedOpts,
@@ -51,7 +57,7 @@ export const ContentInfo = props => (
 )
 
 export const ActionPanel = () => (
-    <View style={styles.flexRow}>
+    <View style={styles.actionPanel}>
         <Button style={styles.button}>
             <Icon style={styles.icon} name='play' size={21} color="#343434" />
         </Button>
@@ -66,6 +72,10 @@ export const ActionPanel = () => (
 const styles = StyleSheet.create({
     flexRow: {
         flexDirection: 'row'
+    },
+    actionPanel: {
+        flexDirection: 'row',
+        paddingTop: 2
     },
 
     icon: {
@@ -82,10 +92,16 @@ const styles = StyleSheet.create({
     selectedOpts: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingTop: 10
+        paddingTop: 12
     },
 
     fontStyle: {
+        fontFamily: 'sans-serif-bold',
+        color: '#000'
+    },
+
+    title: {
+        fontSize: 16,
         fontFamily: 'sans-serif-bold',
         color: '#000'
     },

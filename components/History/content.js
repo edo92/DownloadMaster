@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import { Show, Progress, ContentInfo, ActionPanel } from './components';
+import { Title, Progress, ContentInfo, ActionPanel } from './components';
 import Helpers from '../../helpers/basic';
 
 
-const testswitch = true;
+const testswitch = false;
 
 const Content = props => {
     return (
@@ -17,7 +17,7 @@ const Content = props => {
             </View>
 
             <View style={styles.infoContainer}>
-                <Show label={Helpers.longText(props.content.title, 28)} />
+                <Title title={Helpers.longText(props.content.title, 23)} />
 
                 <ContentInfo extraspace={testswitch} content={props.content} />
 
@@ -31,7 +31,7 @@ const Content = props => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingBottom: 10
+        paddingBottom: 15
     },
 
     imageContainer: {
@@ -50,7 +50,10 @@ const styles = StyleSheet.create({
     },
 
     infoContainer: {
-        padding: 10
+        flex: 1,
+        padding: 1,
+        paddingLeft: 10,
+        paddingRight: 10
     }
 })
 
