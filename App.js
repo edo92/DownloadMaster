@@ -4,14 +4,16 @@ import AppLoading from 'expo-app-loading';
 import { Provider } from 'react-redux';
 import store from './store';
 
-import loader from './load';
 import Main from './view/Main';
-import Permissions from './helpers/permissions';
-import { initDb } from './helpers/db';
+import Layout from './layout';
+
+import loader from './load';
+import { initDb, fetchList } from './helpers/db';
 
 
-initDb().then(() => {
-    console.log('database connected');
+initDb().then(async () => {
+    let test = await fetchList();
+    console.log('test', test)
 }).catch(err => {
     console.log('db error', err)
 })
@@ -21,12 +23,11 @@ class App extends Component {
     state = {}
 
     async componentDidMount() {
-        await loader.loadLibs();
     }
 
     _onLoad = async () => {
         await loader.loadLibs();
-        await Permissions.requestPermissions();
+        // await Permissions.requestPermissions();
     }
 
     _onFinish = async () => {
@@ -50,7 +51,9 @@ class App extends Component {
 
         return (
             <Provider store={store()}>
-                <Main />
+                <Layout>
+                    <Main />
+                </Layout>
             </Provider>
         )
     }

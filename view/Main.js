@@ -1,70 +1,26 @@
-import React, { Component } from 'react';
-import { Platform } from 'react-native';
-import { connect } from 'react-redux';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
-import Header from '../components/Header';
 import InputForm from '../components/InputForm';
 import Preferences from '../components/Preferences';
-import ViewContainer from '../components/ViewContainer';
 import History from '../components/History';
-import Permissions from '../helpers/permissions';
-
-import { // store actions
-    handleInputUrl,
-    handleSubmit,
-    handleSelect,
-    setPermissionStatus,
-    getSavedList
-} from '../store/actions';
 
 
-class MainView extends Component {
-
-    async componentDidMount() {
-        await this.requestPermissions();
-        await this.props.getSavedList();
-    }
-
-    async requestPermissions() {
-        if (!this.props.permissions) {
-            const status = await Permissions.requestPermissions(Platform.OS);
-            this.props.setPermissionStatus(status);
-        }
-    }
-
-    render() {
-        return (
-            <ViewContainer>
-                <Header title='Download Master' />
-
-                <InputForm {...this.props} />
-
-                <Preferences {...this.props} />
-
-                <History {...this.props} />
-            </ViewContainer>
-        )
-    }
-}
-const mapStateToProps = state => {
-    return {
-        inputUrl: state.main.inputUrl,
-        selected: state.main.selected,
-        progress: state.main.progress.downloaded,
-        onProgress: state.main.onProgress,
-        permissions: state.main.permissions,
-        history: state.main.history
-    }
+const MainView = () => {
+    return (
+        <View style={styles.container}>
+            <InputForm />
+            <Preferences />
+            <History />
+        </View>
+    )
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        setPermissionStatus: st => dispatch(setPermissionStatus(st)),
-        handleInputUrl: input => dispatch(handleInputUrl(input)),
-        handleSelect: opts => dispatch(handleSelect(opts)),
-        handleSubmit: () => dispatch(handleSubmit()),
-        getSavedList: () => dispatch(getSavedList())
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainView);
+const styles = StyleSheet.create({
+    container: {
+        padding: 10
+    }
+})
+
+export default MainView;

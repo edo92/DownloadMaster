@@ -39,7 +39,6 @@ export const initDb = () => {
 }
 
 export const insertList = data => {
-    console.log('data', data)
     let { id, format, quality, thumbnail, url, title } = data;
 
     const promise = new Promise((resolve, reject) => {

@@ -1,73 +1,47 @@
 import React from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
 import Content from './Content';
 
 
-const History = ({ history }) => {
-
-    const showContent = content => {
-        return (
-            <Content content={history[content.item]} />
-        )
-    }
-
+const History = props => {
     return (
-        <View style={styles.container}>
-            <View style={styles.listItem} itemDivider>
-                <FlatList
-                    data={Object.keys(history)}
-                    renderItem={showContent}
-                    keyExtractor={item => item}
-                />
-            </View>
-        </View>
+        <FlatList
+            data={Object.keys(history)}
+            keyExtractor={item => item}
+            renderItem={content => (
+                <Content content={history[content.item]} />
+            )}
+        />
     )
 }
 
+//
+const history = [
+    {
+        "content": "gX3uNk8xVMc",
+        "format": "mp4",
+        "id": 8,
+        "quality": "high",
+        "thumbnail": "https://img.youtube.com/vi/gX3uNk8xVMc/0.jpg",
+        "title": "Cute Malamute Husky Puppy Howls Along",
+        "url": "https://www.youtube.com/watch?v=gX3uNk8xVMc",
+    },
+    {
+        "content": "gX3uNk8xVMc",
+        "format": "mp4",
+        "id": 8,
+        "quality": "high",
+        "thumbnail": "https://img.youtube.com/vi/gX3uNk8xVMc/0.jpg",
+        "title": "Cute Malamute Husky Puppy Howls Along",
+        "url": "https://www.youtube.com/watch?v=gX3uNk8xVMc",
+    }
+]
+
+
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        paddingTop: 65
-    },
-    listItem: {
-        flexDirection: 'row',
-        padding: 10,
-    },
-    imageContainer: {
-        borderColor: '#c7c7c757',
-        resizeMode: 'contain',
-        borderWidth: 1,
-        borderRadius: 3,
-        padding: 2
-    },
-    image: {
-        borderRadius: 2,
-        width: 155,
-        height: 95,
-    },
-    infoContainer: {
-        width: '59%',
-        justifyContent: 'center',
-        padding: 5
-    },
-    titleContainer: {
-        paddingBottom: 10,
-        alignItems: 'center'
-    },
-    title: {
-        fontSize: 15,
-        fontWeight: '600'
-    },
-    contentInfo: {
-        flexDirection: 'row',
-        paddingTop: 10,
-        paddingBottom: 10,
-        justifyContent: 'space-evenly'
-    },
-    icon: {
-        paddingLeft: 5
+
     }
 })
-
 
 export default History;
