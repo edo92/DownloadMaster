@@ -23,7 +23,7 @@ const Preferences = () => (
             items={option.items}
             defaultValue={settings[option.name]}
             onChangeItem={() => console.log('selected')}
-            containerStyle={styles.dropDownContainer}
+            containerStyle={{ ...styles.pickerContainer, ...option.style }}
             dropDownStyle={styles.dropdownPicker}
         />)}
     />
@@ -33,6 +33,9 @@ const Preferences = () => (
 const options = [
     {
         name: 'quality',
+        style: {
+            paddingRight: 2
+        },
         items: [
             { label: 'High Quality', value: 'high' },
             { label: 'Mid Quality', value: 'low' },
@@ -40,6 +43,9 @@ const options = [
     },
     {
         name: 'format',
+        style: {
+            paddingLeft: 2
+        },
         items: [
             { label: 'MP4 Video', value: 'mp4' },
             { label: 'MP3 Audio', value: 'mp3' }
@@ -50,16 +56,16 @@ const options = [
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
+        flexDirection: 'row'
     },
 
-    dropDownContainer: {
+    pickerContainer: {
         height: 40,
-        width: '50%'
+        width: '50%',
     },
 
     dropdownPicker: {
-        backgroundColor: '#fafafa'
+        backgroundColor: '#fafafa',
     }
 })
 

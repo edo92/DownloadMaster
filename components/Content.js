@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
-import { Show, Icon, Progress } from './Custom';
+import { StyleSheet, View, Image } from 'react-native';
+import { Show, Progress, ContentInfo } from './Custom';
 import Helpers from '../helpers/basic';
 
 
@@ -16,28 +16,9 @@ const Content = props => {
             </View>
 
             <View style={styles.infoContainer}>
-
-                <View style={styles.alignCenter}>
-                    <Show label={Helpers.longText(props.content.title, 28)} />
-                </View>
-
-                <View style={styles.selectedOpts}>
-                    <Show
-                        label={'Source'} icon={<Icon name={'youtube'} />}
-                    />
-                    <Show
-                        label={Helpers.capFirstChar(props.content.format)}
-                        icon={<Icon name={'video'} color='#EE693F' />}
-                    />
-                    <Show
-                        label={`${Helpers.firstChar(props.content.quality)}Q`}
-                        icon={<Icon name={'quality-high'} color='#EE693F' />}
-                    />
-                </View>
-
-                <View>
-                    <Progress progress={50} />
-                </View>
+                <Show label={Helpers.longText(props.content.title, 28)} />
+                <ContentInfo content={props.content} />
+                <Progress progress={50} />
             </View>
         </View>
     )
@@ -47,6 +28,7 @@ const Content = props => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
+        paddingBottom: 10
     },
 
     imageContainer: {
@@ -67,10 +49,6 @@ const styles = StyleSheet.create({
         padding: 10
     },
 
-    selectedOpts: {
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
 })
 
 export default Content;

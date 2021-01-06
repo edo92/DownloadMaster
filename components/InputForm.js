@@ -26,16 +26,17 @@ const styles = StyleSheet.create({
     },
     wrapper: {
         flexDirection: 'row',
-        height: 50
+        height: 45
     },
     input: {
+        height: 45,
         borderWidth: 1,
         borderRadius: 3,
         borderColor: '#c7c7c757'
     },
     button: {
         padding: 13,
-        height: 50,
+        height: 45,
         backgroundColor: '#EE693F'
     },
     buttonText: {
