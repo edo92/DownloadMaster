@@ -17,7 +17,7 @@ const Content = props => {
             </View>
 
             <View style={styles.infoContainer}>
-                <Title title={Helpers.longText(props.content.title, 23)} />
+                <Title title={Helpers.longText(props.content.title, 21)} />
 
                 <ContentInfo extraspace={testswitch} content={props.content} />
 
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
 
     infoContainer: {
         flex: 1,
-        padding: 1,
+        padding: 3,
         paddingLeft: 10,
         paddingRight: 10
     }

@@ -10,7 +10,7 @@ export const Icon = props => {
     let iconStyle = props.style ? { ...props.style } : {};
     return (
         <IconMci style={styles.icon, iconStyle}
-            name={props.name} size={21} color={props.color || 'red'}
+            name={props.name} size={19} color={props.color || 'red'}
         />
     )
 }
@@ -32,7 +32,7 @@ export const Progress = props => (
 )
 
 export const Title = props => (
-    <View>
+    <View style={styles.titleContainer}>
         <Text style={styles.title}>{props.title}</Text>
     </View>
 )
@@ -92,20 +92,23 @@ const styles = StyleSheet.create({
     selectedOpts: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingTop: 12
+        paddingTop: 10
     },
 
     fontStyle: {
+        fontSize: 12,
         fontFamily: 'sans-serif-bold',
         color: '#000'
     },
 
     title: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: 'sans-serif-bold',
         color: '#000'
     },
-
+    titleContainer: {
+        alignItems: 'center'
+    },
     button: {
         height: 30,
         width: 35,

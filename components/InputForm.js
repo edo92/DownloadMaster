@@ -35,10 +35,11 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 3,
         borderColor: '#c7c7c757',
-        borderTopRightRadius: 0,
-        borderBottomRightRadius: 0
+        borderTopRightRadius: 2,
+        borderBottomRightRadius: 2
     },
     button: {
+        borderRadius: 2,
         padding: 13,
         height: 45,
         backgroundColor: '#EE693F'
