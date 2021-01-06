@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     },
 
     innerContainer: {
-        padding: 20,
     }
 })
 

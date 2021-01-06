@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import options from './options';
+
 
 //
 const settings = {
@@ -25,33 +27,11 @@ const Preferences = () => (
             onChangeItem={() => console.log('selected')}
             containerStyle={{ ...styles.pickerContainer, ...option.style }}
             dropDownStyle={styles.dropdownPicker}
+            labelStyle={styles.labelStyle}
         />)}
     />
 )
 
-
-const options = [
-    {
-        name: 'quality',
-        style: {
-            paddingRight: 2
-        },
-        items: [
-            { label: 'High Quality', value: 'high' },
-            { label: 'Mid Quality', value: 'low' },
-        ]
-    },
-    {
-        name: 'format',
-        style: {
-            paddingLeft: 2
-        },
-        items: [
-            { label: 'MP4 Video', value: 'mp4' },
-            { label: 'MP3 Audio', value: 'mp3' }
-        ]
-    }
-]
 
 
 const styles = StyleSheet.create({
@@ -66,6 +46,12 @@ const styles = StyleSheet.create({
 
     dropdownPicker: {
         backgroundColor: '#fafafa',
+    },
+
+    labelStyle: {
+        fontSize: 15,
+        textAlign: 'left',
+        color: '#000',
     }
 })
 

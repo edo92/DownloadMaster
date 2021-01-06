@@ -1,13 +1,12 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import { Show, Progress, ContentInfo } from './Custom';
-import Helpers from '../helpers/basic';
+import { Show, Progress, ContentInfo } from './components';
+import Helpers from '../../helpers/basic';
 
 
 const Content = props => {
     return (
         <View style={styles.container}>
-
             <View style={styles.imageContainer}>
                 <Image
                     source={{ uri: props.content.thumbnail }}

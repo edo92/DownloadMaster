@@ -1,17 +1,19 @@
 import React from 'react';
-import { StyleSheet, FlatList } from 'react-native';
-import Content from './Content';
+import { StyleSheet, FlatList, View } from 'react-native';
+import Content from './content';
 
 
 const History = props => {
     return (
-        <FlatList
-            data={Object.keys(history)}
-            keyExtractor={item => item}
-            renderItem={content => (
-                <Content content={history[content.item]} />
-            )}
-        />
+        <View style={styles.container}>
+            <FlatList
+                data={Object.keys(history)}
+                keyExtractor={item => item}
+                renderItem={content => (
+                    <Content content={history[content.item]} />
+                )}
+            />
+        </View>
     )
 }
 
@@ -40,7 +42,7 @@ const history = [
 
 const styles = StyleSheet.create({
     container: {
-
+        paddingTop: 80
     }
 })
 

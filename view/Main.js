@@ -6,6 +6,7 @@ import Preferences from '../components/Preferences';
 import History from '../components/History';
 import { Panel } from '../components/Custom';
 
+
 const MainView = () => {
     return (
         <View style={styles.container}>

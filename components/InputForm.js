@@ -9,9 +9,10 @@ const InputForm = props => {
         <View style={styles.container}>
             <View style={styles.wrapper}>
                 <Input
-                    placeholder='past video url'
+                    placeholder='Past video url'
                     style={styles.input}
                 />
+
                 <Button style={styles.button}>
                     <Text style={styles.buttonText}>Download</Text>
                 </Button>
@@ -19,6 +20,7 @@ const InputForm = props => {
         </View>
     )
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -32,7 +34,9 @@ const styles = StyleSheet.create({
         height: 45,
         borderWidth: 1,
         borderRadius: 3,
-        borderColor: '#c7c7c757'
+        borderColor: '#c7c7c757',
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0
     },
     button: {
         padding: 13,
