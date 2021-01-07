@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
 import IconMci from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntdProgress from '@ant-design/react-native/lib/progress';
 import helpers from '../../helpers/basic';
 import { Button } from 'native-base';
+
+const dimentions = Dimensions.get('window');
 
 
 export const Icon = props => {
@@ -31,11 +33,20 @@ export const Progress = props => (
     </View>
 )
 
-export const Title = props => (
-    <View style={styles.titleContainer}>
-        <Text style={styles.title}>{props.title}</Text>
-    </View>
-)
+export const Title = props => {
+    const longText = str => {
+        const { width, scale } = dimentions;
+        const max = (Math.round((width * 0.55) / 10) - (scale));
+        if (str.length < max) return str;
+        return str.slice(0, max) + '...';
+    }
+
+    return (
+        <View style={styles.titleContainer}>
+            <Text style={styles.title}>{longText(props.title)}</Text>
+        </View>
+    )
+}
 
 export const ContentInfo = props => (
     <View style={{
@@ -59,15 +70,27 @@ export const ContentInfo = props => (
 export const ActionPanel = () => (
     <View style={styles.actionPanel}>
         <Button style={styles.button}>
-            <Icon style={styles.icon} name='play' size={21} color="#343434" />
+            <View style={styles.innerButton}>
+                <Text>Play</Text>
+                <Icon style={styles.icon} name='play' size={21} color="#343434" />
+            </View>
         </Button>
 
         <Button style={styles.button}>
-            <Icon style={styles.icon, { fontSize: 19 }} name='delete' size={21} color="#343434" />
+            <View style={styles.innerButton}>
+                <Text>Delete</Text>
+                <Icon style={styles.icon, { fontSize: 18 }} name='delete' size={21} color="#343434" />
+            </View>
         </Button>
     </View>
 )
 
+export const ImageDynamic = ({ source }) => (
+    <Image
+        source={{ uri: source }}
+        style={styles.image}
+    />
+)
 
 const styles = StyleSheet.create({
     flexRow: {
@@ -75,7 +98,8 @@ const styles = StyleSheet.create({
     },
     actionPanel: {
         flexDirection: 'row',
-        paddingTop: 2
+        paddingTop: 2,
+        justifyContent: 'center'
     },
 
     icon: {
@@ -106,20 +130,34 @@ const styles = StyleSheet.create({
         fontFamily: 'sans-serif-bold',
         color: '#000'
     },
+
     titleContainer: {
         alignItems: 'center'
     },
     button: {
+        padding: 3,
         height: 30,
-        width: 35,
+        paddingRight: 5,
+        paddingLeft: 5,
         marginLeft: 10,
         backgroundColor: '#ffff',
         justifyContent: 'center'
+    },
+    innerButton: {
+        flexDirection: 'row',
+        padding: 5,
     },
     extraspace: {
         paddingBottom: 17
     },
     minspace: {
         paddingBottom: 8
-    }
+    },
+    image: {
+        borderRadius: 2,
+        width: (Math.round(dimentions.width * 0.40)),
+        height: 97,
+        resizeMode: 'cover',
+
+    },
 })

@@ -10,9 +10,9 @@
         ],
         "version": "1.2.0",
         "orientation": "portrait",
-        "icon": "./assets/icon.png",
+        "icon": "./assets/appstore.png",
         "splash": {
-            "image": "./assets/splash.png",
+            "image": "./assets/Android.mp4",
             "resizeMode": "contain",
             "backgroundColor": "#ffffff"
         },
@@ -31,7 +31,7 @@
             "package": "com.download.master",
             "versionCode": 1,
             "adaptiveIcon": {
-                "foregroundImage": "./assets/adaptive-icon.png",
+                "foregroundImage": "./assets/Android.mp4",
                 "backgroundColor": "#FFFFFF"
             },
             "permissions": [
