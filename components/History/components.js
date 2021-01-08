@@ -88,7 +88,7 @@ export const ContentInfo = props => (
     </View>
 )
 
-export const ActionPanel = () => (
+export const ActionPanel = props => (
     <View style={styles.actionPanel}>
         <Button style={styles.button}>
             <View style={styles.innerButton}>
@@ -96,7 +96,7 @@ export const ActionPanel = () => (
                 <Icon style={styles.icon} name='play' size={21} color="#343434" />
             </View>
         </Button>
-        <Button style={styles.button}>
+        <Button onPress={props.handleRemove} style={styles.button}>
             <View style={styles.innerButton}>
                 <Text>Delete</Text>
                 <Icon style={styles.icon, { fontSize: 18 }} name='delete' size={21} color="#343434" />

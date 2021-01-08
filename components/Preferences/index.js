@@ -19,13 +19,13 @@ const PreferencesMenu = props => (
     </View>
 )
 
-const Preferences = () => (
+const Preferences = props => (
     <PreferencesMenu component={({ option }) => (
         <DropDownPicker
             items={option.items}
-            defaultValue={settings[option.name]}
-            onChangeItem={() => console.log('selected')}
-            containerStyle={{ ...styles.pickerContainer, ...option.style }}
+            defaultValue={props.settings[option.name]}
+            onChangeItem={opt => props.handleSelect(opt, option.name)}
+            containerStyle={[styles.pickerContainer, option.style]}
             dropDownStyle={styles.dropdownPicker}
             labelStyle={styles.labelStyle}
         />)}

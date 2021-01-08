@@ -1,0 +1,2 @@
+export const HANDLE_INPUT = 'HANDLE_INPUT';
+export const SET_SETTINGS = 'SET_SETTINGS';

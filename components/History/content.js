@@ -19,8 +19,15 @@ const Content = props => {
                     content={props.content}
                 />
                 {testswitch ?
-                    (<Progress progress={50} />) :
-                    (<ActionPanel />)
+                    (
+                        <Progress progress={50} />
+                    )
+                    :
+                    (
+                        <ActionPanel
+                            handleRemove={props.handleRemove}
+                        />
+                    )
                 }
             </View>
         </ContainerWithDivider>

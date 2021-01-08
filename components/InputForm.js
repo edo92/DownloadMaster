@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Keyboard } from 'react-native';
 import { Input } from 'native-base';
 import { Button } from 'native-base';
 
@@ -10,10 +10,18 @@ const InputForm = props => {
             <View style={styles.wrapper}>
                 <Input
                     placeholder='Past video url'
+                    onChangeText={props.handleInput}
+                    value={props.value}
                     style={styles.input}
                 />
 
-                <Button style={styles.button}>
+                <Button
+                    style={styles.button}
+                    onPress={() => {
+                        Keyboard.dismiss();
+                        props.handleSubmit();
+                    }}
+                >
                     <Text style={styles.buttonText}>Download</Text>
                 </Button>
             </View>

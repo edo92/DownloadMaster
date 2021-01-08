@@ -17,6 +17,7 @@ const History = props => {
                         // if content is last element
                         lastElem={content.index === lastElem}
                         content={history[content.item]}
+                        handleRemove={props.handleRemove}
                     />
                 )}
             />
