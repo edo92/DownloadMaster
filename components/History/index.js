@@ -4,13 +4,20 @@ import Content from './content';
 
 
 const History = props => {
+    const historyArr = Object.keys(history);
+    const lastElem = Number(historyArr[historyArr.length - 1]);
+
     return (
         <View style={styles.container}>
             <FlatList
                 data={Object.keys(history)}
                 keyExtractor={item => item}
                 renderItem={content => (
-                    <Content content={history[content.item]} />
+                    <Content
+                        // if content is last element
+                        lastElem={content.index === lastElem}
+                        content={history[content.item]}
+                    />
                 )}
             />
         </View>

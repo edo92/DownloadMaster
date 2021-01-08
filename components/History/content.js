@@ -1,13 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Title, Progress, ContentInfo, ActionPanel, ImageDynamic } from './components';
+import { Title, Progress, ContentInfo, ActionPanel, ImageDynamic, ContainerWithDivider } from './components';
 
 const testswitch = false;
 
 const Content = props => {
     return (
-        <View style={styles.container}>
-
+        <ContainerWithDivider divider={props.lastElem}>
             <View style={styles.imageContainer}>
                 <ImageDynamic source={props.content.thumbnail} />
             </View>
@@ -19,15 +18,12 @@ const Content = props => {
                     extraspace={testswitch}
                     content={props.content}
                 />
-
-                {testswitch ? (
-                    <Progress progress={50} />
-                ) : (
-                        <ActionPanel />
-                    )
+                {testswitch ?
+                    (<Progress progress={50} />) :
+                    (<ActionPanel />)
                 }
             </View>
-        </View>
+        </ContainerWithDivider>
     )
 }
 

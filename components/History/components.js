@@ -42,6 +42,15 @@ export const ImageDynamic = ({ source }) => (
     />
 )
 
+export const ContainerWithDivider = props => {
+    const divStyle = props.divider ? {} : styles.divider;
+    return (
+        <View style={[styles.containerDivider, divStyle]}>
+            {props.children}
+        </View>
+    )
+}
+
 
 /* Component helpers */
 
@@ -62,7 +71,7 @@ export const Title = props => {
 
 export const ContentInfo = props => (
     <View style={{
-        ...styles.selectedOpts,
+        ...styles.contentInfo,
         ...styles[props.extraspace ? 'extraspace' : 'minspace']
     }}>
         <Show
@@ -87,7 +96,6 @@ export const ActionPanel = () => (
                 <Icon style={styles.icon} name='play' size={21} color="#343434" />
             </View>
         </Button>
-
         <Button style={styles.button}>
             <View style={styles.innerButton}>
                 <Text>Delete</Text>
@@ -103,7 +111,7 @@ const styles = StyleSheet.create({
     },
     actionPanel: {
         flexDirection: 'row',
-        paddingTop: 5,
+        paddingTop: 7,
         justifyContent: 'center'
     },
 
@@ -118,10 +126,10 @@ const styles = StyleSheet.create({
         borderColor: '#ee693fd6',
     },
 
-    selectedOpts: {
+    contentInfo: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingTop: 15
+        paddingTop: 11
     },
 
     fontStyle: {
@@ -145,11 +153,11 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         backgroundColor: '#ffff',
         justifyContent: 'center',
-        height: 30,
+        maxHeight: 30
     },
     innerButton: {
         flexDirection: 'row',
-        padding: 5,
+        padding: 5
     },
     extraspace: {
         paddingBottom: 17
@@ -162,5 +170,14 @@ const styles = StyleSheet.create({
         width: Math.round(dimentions.width * 0.40),
         height: Math.round(dimentions.width * 0.25),
         resizeMode: 'cover',
+    },
+    containerDivider: {
+        flexDirection: 'row',
+        paddingTop: 11,
+        paddingBottom: 11
+    },
+    divider: {
+        borderBottomColor: '#c7c7c757',
+        borderBottomWidth: 1
     }
 })
