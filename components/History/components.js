@@ -8,6 +8,8 @@ import { Button } from 'native-base';
 const dimentions = Dimensions.get('window');
 
 
+/** Simple helpers */
+
 export const Icon = props => {
     let iconStyle = props.style ? { ...props.style } : {};
     return (
@@ -32,6 +34,16 @@ export const Progress = props => (
         />
     </View>
 )
+
+export const ImageDynamic = ({ source }) => (
+    <Image
+        source={{ uri: source }}
+        style={styles.image}
+    />
+)
+
+
+/* Component helpers */
 
 export const Title = props => {
     const longText = str => {
@@ -85,20 +97,13 @@ export const ActionPanel = () => (
     </View>
 )
 
-export const ImageDynamic = ({ source }) => (
-    <Image
-        source={{ uri: source }}
-        style={styles.image}
-    />
-)
-
 const styles = StyleSheet.create({
     flexRow: {
         flexDirection: 'row'
     },
     actionPanel: {
         flexDirection: 'row',
-        paddingTop: 2,
+        paddingTop: 5,
         justifyContent: 'center'
     },
 
@@ -116,7 +121,7 @@ const styles = StyleSheet.create({
     selectedOpts: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingTop: 10
+        paddingTop: 15
     },
 
     fontStyle: {
@@ -135,13 +140,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     button: {
-        padding: 3,
-        height: 30,
         paddingRight: 5,
         paddingLeft: 5,
         marginLeft: 10,
         backgroundColor: '#ffff',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        height: 30,
     },
     innerButton: {
         flexDirection: 'row',
@@ -155,9 +159,8 @@ const styles = StyleSheet.create({
     },
     image: {
         borderRadius: 2,
-        width: (Math.round(dimentions.width * 0.40)),
-        height: 97,
+        width: Math.round(dimentions.width * 0.40),
+        height: Math.round(dimentions.width * 0.25),
         resizeMode: 'cover',
-
-    },
+    }
 })

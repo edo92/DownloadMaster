@@ -42,6 +42,7 @@ const history = [
 
 const styles = StyleSheet.create({
     container: {
+        height: '100%',
         paddingTop: 80
     }
 })

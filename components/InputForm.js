@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#FCFDFE',
         fontWeight: '700'
-    },
+    }
 })
 
 export default InputForm;
