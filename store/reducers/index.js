@@ -1,18 +1,21 @@
 import {
     HANDLE_INPUT,
     SET_SETTINGS,
-    REMOVE_HISTORY_ITEM
+    REMOVE_HISTORY_ITEM,
+    ADD_TO_HISTORY,
+    SET_PROGRESS
 } from '../constants';
 
 
 const initialState = {
     inputUrl: '',
+    progress: 0,
     settings: {
         format: 'mp4',
         quality: 'high'
     },
-    history: [
-        {
+    history: {
+        gX3dfuNk8xVMc: {
             "contentId": "gX3dfuNk8xVMc",
             "format": "mp4",
             "id": 8,
@@ -21,7 +24,7 @@ const initialState = {
             "title": "Cute Malamute Husky Puppy Howls Along",
             "url": "https://www.youtube.com/watch?v=gX3uNk8xVMc",
         },
-        {
+        gX3uNfk8xVMc: {
             "contentId": "gX3uNfk8xVMc",
             "format": "mp4",
             "id": 8,
@@ -30,7 +33,7 @@ const initialState = {
             "title": "Cute Malamute Husky Puppy Howls Along",
             "url": "https://www.youtube.com/watch?v=gX3uNk8xVMc",
         }
-    ]
+    }
 }
 
 const reducer = (state = initialState, action) => {
@@ -52,15 +55,48 @@ const reducer = (state = initialState, action) => {
             }
         }
 
-        case REMOVE_HISTORY_ITEM: {
+
+        case 'ADD_TO_HISTORY': {
+            const { contentId } = action.payload;
             return {
                 ...state,
-                history: state.history.filter(item => {
-                    return item.contentId === action.payload.id;
-                })
+                inputUrl: '',
+                history: {
+                    ...state.history,
+                    [contentId]: {
+                        ...state.history[contentId],
+                        ...action.payload,
+                        progress: { downloaded: 0 }
+                    }
+                }
             }
         }
 
+        case REMOVE_HISTORY_ITEM: {
+            let newObj = Object.assign({}, state.history);
+            delete newObj[action.payload.contentId];
+
+            return {
+                ...state,
+                history: newObj
+            }
+        }
+
+        case SET_PROGRESS: {
+            let dwl = action.payload.progress.downloaded;
+            let progress = dwl === 100 ? dwl = 0 : action.payload.progress;
+
+            return {
+                ...state,
+                history: {
+                    ...state.history,
+                    [action.payload.contentId]: {
+                        ...state.history[action.payload.contentId],
+                        progress: progress
+                    }
+                }
+            }
+        }
 
         default:
             return state

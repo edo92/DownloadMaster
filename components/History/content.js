@@ -4,8 +4,6 @@ import { Title, Progress, ContentInfo, ActionPanel, ImageDynamic } from './compo
 import Swipeable from '../Swipeable';
 
 
-const testswitch = false;
-
 const Content = props => {
     return (
         <Swipeable
@@ -27,16 +25,15 @@ const Content = props => {
                 />
 
                 <ContentInfo
-                    extraspace={testswitch}
+                    extraspace={!!props.content.progress}
                     content={props.content}
                 />
+                {console.log('testing....', props.content.progress)}
 
-                {testswitch ?
+                {props.content.progress ?
                     (
-                        <Progress progress={50} />
-                    )
-                    :
-                    (
+                        <Progress progress={props.content.progress} />
+                    ) : (
                         <ActionPanel />
                     )
                 }

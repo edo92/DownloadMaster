@@ -47,10 +47,12 @@ export const ImageDynamic = ({ source }) => (
 
 export const Title = props => {
     const longText = str => {
-        const { width, scale } = dimentions;
-        const max = (Math.round((width * 0.55) / 10) - (scale));
-        if (str.length < max) return str;
-        return str.slice(0, max) + '...';
+        if (str) {
+            const { width, scale } = dimentions;
+            const max = (Math.round((width * 0.55) / 10) - (scale));
+            if (str.length < max) return str;
+            return str.slice(0, max) + '...';
+        } else return ' asjdflalsdjf'
     }
 
     return (

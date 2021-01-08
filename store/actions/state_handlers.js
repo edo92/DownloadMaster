@@ -22,7 +22,7 @@ export const handleRemoveItem = contentId => {
     return dispatch => {
         dispatch({
             type: REMOVE_HISTORY_ITEM,
-            payload: { id: contentId }
+            payload: { contentId }
         })
     }
 }

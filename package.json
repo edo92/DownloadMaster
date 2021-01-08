@@ -9,7 +9,7 @@
     },
     "dependencies": {
         "@ant-design/react-native": "^4.0.6",
-        "react-native-dropdown-picker": "^3.7.8",
+        "axios": "^0.21.1",
         "expo": "40.0.0",
         "expo-app-loading": "1.0.1",
         "expo-font": "~8.4.0",
@@ -19,7 +19,9 @@
         "native-base": "2.15.0",
         "react": "17.0.1",
         "react-native": "0.63.4",
+        "react-native-dropdown-picker": "^3.7.8",
         "react-native-vector-icons": "^7.1.0",
+        "react-native-ytdl": "^4.2.1",
         "react-redux": "7.2.2",
         "redux": "4.0.5",
         "redux-thunk": "2.3.0"
