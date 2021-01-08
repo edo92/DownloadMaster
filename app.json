@@ -10,9 +10,9 @@
         ],
         "version": "1.2.0",
         "orientation": "portrait",
-        "icon": "./assets/appstore.png",
+        "icon": "./assets/splashScreen.png",
         "splash": {
-            "image": "./assets/Android.mp4",
+            "image": "./assets/splashScreen.png",
             "resizeMode": "contain",
             "backgroundColor": "#ffffff"
         },
@@ -25,14 +25,18 @@
         "ios": {
             "bundleIdentifier": "com.download.master",
             "buildNumber": "1.2.0",
-            "supportsTablet": true
+            "supportsTablet": true,
+            "splash": {
+                "image": "./assets/splashScreen.png",
+                "resizeMode": "contain"
+            }
         },
         "android": {
             "package": "com.download.master",
             "versionCode": 1,
             "adaptiveIcon": {
-                "foregroundImage": "./assets/Android.mp4",
-                "backgroundColor": "#FFFFFF"
+                "foregroundImage": "./assets/foreground.png",
+                "backgroundColor": "#EE693F"
             },
             "permissions": [
                 "MEDIA_LIBRARY"
