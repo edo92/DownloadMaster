@@ -1,44 +1,55 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Title, Progress, ContentInfo, ActionPanel, ImageDynamic, ContainerWithDivider } from './components';
+import { Title, Progress, ContentInfo, ActionPanel, ImageDynamic } from './components';
+import Swipeable from '../Swipeable';
+
 
 const testswitch = false;
 
 const Content = props => {
     return (
-        <ContainerWithDivider divider={props.lastElem}>
+        <Swipeable
+            divider={props.lastElem}
+            container={styles.containerStyle}
+            handleRemove={props.handleRemove}
+            contentId={props.content.contentId}
+        >
+
             <View style={styles.imageContainer}>
-                <ImageDynamic source={props.content.thumbnail} />
+                <ImageDynamic
+                    source={props.content.thumbnail}
+                />
             </View>
 
             <View style={styles.infoContainer}>
-                <Title title={props.content.title} />
+                <Title
+                    title={props.content.title}
+                />
 
                 <ContentInfo
                     extraspace={testswitch}
                     content={props.content}
                 />
+
                 {testswitch ?
                     (
                         <Progress progress={50} />
                     )
                     :
                     (
-                        <ActionPanel
-                            handleRemove={props.handleRemove}
-                        />
+                        <ActionPanel />
                     )
                 }
             </View>
-        </ContainerWithDivider>
+        </Swipeable>
     )
 }
 
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        paddingBottom: 15
+    containerStyle: {
+        paddingBottom: 11,
+        paddingTop: 11
     },
 
     imageContainer: {

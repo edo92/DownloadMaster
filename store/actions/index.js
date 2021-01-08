@@ -1,42 +1,14 @@
-import {
-    HANDLE_INPUT,
-    SET_SETTINGS
-} from '../constants';
+// Handels inputs in state
+export {
+    handleInputUrl,
+    handleSelect,
+    handleRemoveItem
+} from './state_handlers';
 
+// Handels database actions
+export { getHistoryList } from './db_handlers';
 
-export const handleInputUrl = input => {
-    return dispatch => {
-        dispatch({ type: HANDLE_INPUT, payload: input });
-    }
-}
+// Download api handler
+export { handleDownload } from './download.js';
 
-export const handleSelect = (option, name) => {
-    return dispatch => {
-        dispatch({
-            type: SET_SETTINGS,
-            payload: { [name]: option.value }
-        })
-    }
-}
-
-export const getHistoryList = () => {
-    return dispatch => {
-        console.log('get history')
-    }
-}
-
-export const handleRemoveItem = () => {
-    return dispatch => {
-        console.log('removeing')
-    }
-}
-
-export const handleDownload = () => {
-    return (dispatch, getState) => {
-        const state = getState().main;
-
-        // Clear input url
-        dispatch({ type: HANDLE_INPUT, payload: '' });
-    }
-}
 

@@ -4,12 +4,6 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import options from './options';
 
 
-//
-const settings = {
-    format: 'mp4',
-    quality: 'high'
-}
-
 // Map options list
 const PreferencesMenu = props => (
     <View style={styles.container}>
@@ -19,18 +13,30 @@ const PreferencesMenu = props => (
     </View>
 )
 
-const Preferences = props => (
-    <PreferencesMenu component={({ option }) => (
-        <DropDownPicker
-            items={option.items}
-            defaultValue={props.settings[option.name]}
-            onChangeItem={opt => props.handleSelect(opt, option.name)}
-            containerStyle={[styles.pickerContainer, option.style]}
-            dropDownStyle={styles.dropdownPicker}
-            labelStyle={styles.labelStyle}
-        />)}
-    />
-)
+const Preferences = props => {
+    return (
+        <PreferencesMenu component={({ option }) => (
+            <DropDownPicker
+                items={option.items}
+                defaultValue={props.settings[option.name]}
+
+                onChangeItem={(selected) => {
+                    props.handleSelect({
+                        value: selected.value,
+                        name: option.name
+                    })
+                }}
+
+                dropDownStyle={styles.dropdownPicker}
+                labelStyle={styles.labelStyle}
+                containerStyle={[
+                    styles.pickerContainer,
+                    option.style
+                ]}
+            />)}
+        />
+    )
+}
 
 
 

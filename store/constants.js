@@ -1,2 +1,3 @@
 export const HANDLE_INPUT = 'HANDLE_INPUT';
 export const SET_SETTINGS = 'SET_SETTINGS';
+export const REMOVE_HISTORY_ITEM = 'REMOVE_HISTORY_ITEM';

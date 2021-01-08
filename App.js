@@ -14,6 +14,7 @@ class App extends Component {
 
     _onLoad = async () => {
         await loader.loadLibs();
+        this._warningOff();
     }
 
     _onFinish = async () => {
@@ -22,6 +23,10 @@ class App extends Component {
 
     _onError = err => {
         this.setState({ err });
+    }
+
+    _warningOff = () => {
+        console.warn = () => null;
     }
 
     render() {

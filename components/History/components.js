@@ -42,15 +42,6 @@ export const ImageDynamic = ({ source }) => (
     />
 )
 
-export const ContainerWithDivider = props => {
-    const divStyle = props.divider ? {} : styles.divider;
-    return (
-        <View style={[styles.containerDivider, divStyle]}>
-            {props.children}
-        </View>
-    )
-}
-
 
 /* Component helpers */
 
@@ -96,7 +87,7 @@ export const ActionPanel = props => (
                 <Icon style={styles.icon} name='play' size={21} color="#343434" />
             </View>
         </Button>
-        <Button onPress={props.handleRemove} style={styles.button}>
+        <Button style={styles.button}>
             <View style={styles.innerButton}>
                 <Text>Delete</Text>
                 <Icon style={styles.icon, { fontSize: 18 }} name='delete' size={21} color="#343434" />
@@ -170,14 +161,5 @@ const styles = StyleSheet.create({
         width: Math.round(dimentions.width * 0.40),
         height: Math.round(dimentions.width * 0.25),
         resizeMode: 'cover',
-    },
-    containerDivider: {
-        flexDirection: 'row',
-        paddingTop: 11,
-        paddingBottom: 11
-    },
-    divider: {
-        borderBottomColor: '#c7c7c757',
-        borderBottomWidth: 1
     }
 })

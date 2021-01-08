@@ -18,9 +18,9 @@ import { // Actions
 
 class MainView extends Component {
 
-    async componentDidMount() {
-        await this.props.getHistoryList();
-    }
+    // async componentDidMount() {
+    //     await this.props.getHistoryList();
+    // }
 
     render() {
         return (
@@ -40,6 +40,7 @@ class MainView extends Component {
                 </Panel>
                 <Panel>
                     <History
+                        history={this.props.history}
                         handleRemove={this.props.handleRemoveItem}
                     />
                 </Panel>
@@ -51,7 +52,8 @@ class MainView extends Component {
 const mapStateToProps = state => {
     return {
         inputUrl: state.main.inputUrl,
-        settings: state.main.settings
+        settings: state.main.settings,
+        history: state.main.history
     }
 }
 
@@ -61,7 +63,7 @@ const mapDispatchToProps = dispatch => {
         handleDownload: () => dispatch(handleDownload()),
 
         handleSelect: (opt, name) => dispatch(handleSelect(opt, name)),
-        handleRemoveItem: () => dispatch(handleRemoveItem()),
+        handleRemoveItem: (id) => dispatch(handleRemoveItem(id)),
 
         getHistoryList: () => dispatch(getHistoryList())
     }
