@@ -8,33 +8,38 @@ import { Button } from 'native-base';
 const dimentions = Dimensions.get('window');
 
 
-/** Simple helpers */
+/** 
+ * Simple helpers 
+**/
 
 export const Icon = props => {
     let iconStyle = props.style ? { ...props.style } : {};
     return (
         <IconMci style={styles.icon, iconStyle}
-            name={props.name} size={19} color={props.color || 'red'}
+            name={props.name} size={22} color={props.color || 'red'}
         />
     )
 }
 
 export const Show = props => (
     <View style={styles.flexRow}>
-        <Text style={styles.fontStyle}>{props.label}</Text>
+        <Text style={styles.label}>{props.label}</Text>
         {props.icon}
     </View>
 )
 
-export const Progress = props => (
-    <View style={styles.progressContainer}>
-        <AntdProgress
-            percent={50}
-            barStyle={styles.progress}
-        />
-    </View>
-)
+export const Progress = props => {
+    if (!props.progress) return <></>;
 
+    return (
+        <View style={styles.progressContainer}>
+            <AntdProgress
+                percent={props.progress}
+                barStyle={styles.progress}
+            />
+        </View>
+    )
+}
 export const ImageDynamic = ({ source }) => (
     <Image
         source={{ uri: source }}
@@ -43,7 +48,9 @@ export const ImageDynamic = ({ source }) => (
 )
 
 
-/* Component helpers */
+/** 
+ * Component helpers 
+**/
 
 export const Title = props => {
     const longText = str => {
@@ -63,10 +70,7 @@ export const Title = props => {
 }
 
 export const ContentInfo = props => (
-    <View style={{
-        ...styles.contentInfo,
-        ...styles[props.extraspace ? 'extraspace' : 'minspace']
-    }}>
+    <View style={styles.contentInfo}>
         <Show
             label={'Source'} icon={<Icon name={'youtube'} />}
         />
@@ -81,40 +85,20 @@ export const ContentInfo = props => (
     </View>
 )
 
-export const ActionPanel = props => (
-    <View style={styles.actionPanel}>
-        <Button style={styles.button}>
-            <View style={styles.innerButton}>
-                <Text>Play</Text>
-                <Icon style={styles.icon} name='play' size={21} color="#343434" />
-            </View>
-        </Button>
-        <Button style={styles.button}>
-            <View style={styles.innerButton}>
-                <Text>Delete</Text>
-                <Icon style={styles.icon, { fontSize: 18 }} name='delete' size={21} color="#343434" />
-            </View>
-        </Button>
-    </View>
-)
-
 const styles = StyleSheet.create({
     flexRow: {
         flexDirection: 'row'
     },
-    actionPanel: {
-        flexDirection: 'row',
-        paddingTop: 7,
-        justifyContent: 'center'
-    },
+
 
     icon: {
         paddingLeft: 5
     },
 
     progressContainer: {
-
+        paddingTop: 10
     },
+
     progress: {
         borderColor: '#ee693fd6',
     },
@@ -122,11 +106,11 @@ const styles = StyleSheet.create({
     contentInfo: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingTop: 11
+        paddingTop: 15
     },
 
-    fontStyle: {
-        fontSize: 12,
+    label: {
+        fontSize: 14,
         fontFamily: 'sans-serif-bold',
         color: '#000'
     },
@@ -140,24 +124,7 @@ const styles = StyleSheet.create({
     titleContainer: {
         alignItems: 'center'
     },
-    button: {
-        paddingRight: 5,
-        paddingLeft: 5,
-        marginLeft: 10,
-        backgroundColor: '#ffff',
-        justifyContent: 'center',
-        maxHeight: 30
-    },
-    innerButton: {
-        flexDirection: 'row',
-        padding: 5
-    },
-    extraspace: {
-        paddingBottom: 17
-    },
-    minspace: {
-        paddingBottom: 8
-    },
+
     image: {
         borderRadius: 2,
         width: Math.round(dimentions.width * 0.40),

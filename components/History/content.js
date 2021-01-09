@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Title, Progress, ContentInfo, ActionPanel, ImageDynamic } from './components';
+import { Title, Progress, ContentInfo, ImageDynamic } from './components';
 import Swipeable from '../Swipeable';
 
 
@@ -14,29 +14,17 @@ const Content = props => {
         >
 
             <View style={styles.imageContainer}>
-                <ImageDynamic
-                    source={props.content.thumbnail}
-                />
+                <ImageDynamic source={props.content.thumbnail} />
             </View>
 
             <View style={styles.infoContainer}>
                 <Title
                     title={props.content.title}
                 />
-
                 <ContentInfo
-                    extraspace={!!props.content.progress}
                     content={props.content}
                 />
-                {console.log('testing....', props.content.progress)}
-
-                {props.content.progress ?
-                    (
-                        <Progress progress={props.content.progress} />
-                    ) : (
-                        <ActionPanel />
-                    )
-                }
+                <Progress progress={props.content.progress} />
             </View>
         </Swipeable>
     )
@@ -58,9 +46,8 @@ const styles = StyleSheet.create({
 
     infoContainer: {
         flex: 1,
-        padding: 3,
-        paddingLeft: 10,
-        paddingRight: 10
+        padding: 10,
+        paddingTop: 20,
     }
 })
 

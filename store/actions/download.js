@@ -4,7 +4,10 @@ import Downloader from '../../libs/downloader';
 
 export const handleDownload = () => {
     return async (dispatch, getState) => {
+        // Redux state
         const state = getState().main;
+
+        if (!state.inputUrl) return;
 
         const content = new Downloader({
             url: state.inputUrl,
@@ -15,7 +18,6 @@ export const handleDownload = () => {
         const info = await content.getContentInfo();
         // Add content info to state history
         dispatch({ type: ADD_TO_HISTORY, payload: info });
-
 
         // Download content
         let file = await content.downloadAsync(progress => {

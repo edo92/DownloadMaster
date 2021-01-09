@@ -8,10 +8,7 @@ class GetherData {
     setContentTitle() {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             try {
-                const endpoint = helpers_1.System.ytlInfoEndpoint(this.contentId);
-                let test = yield (yield axios_1.default.get(endpoint)).data.title;
-                console.log('testing', test);
-                this.title = test;
+                this.title = yield (yield (axios_1.default.post(helpers_1.Endpoints.getTitle, { contentId: this.contentId }))).data.title;
             }
             catch (err) {
                 console.log('unable to get video info');
