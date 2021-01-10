@@ -64,6 +64,7 @@ const mapDispatchToProps = dispatch => {
 
 const styles = StyleSheet.create({
     container: {
+        height: '100%',
         padding: 10
     }
 })

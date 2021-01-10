@@ -40,6 +40,7 @@ export const Progress = props => {
         </View>
     )
 }
+
 export const ImageDynamic = ({ source }) => (
     <Image
         source={{ uri: source }}

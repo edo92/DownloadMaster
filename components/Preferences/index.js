@@ -6,7 +6,7 @@ import options from './options';
 
 // Map options list
 const PreferencesMenu = props => {
-    const contStyle = Platform.OS === 'ios' ? styles.containerIos : {};
+    const contStyle = Platform.OS === 'ios' && styles.containerIos;
 
     return (
         <View style={[styles.container, contStyle]}>
@@ -43,7 +43,6 @@ const Preferences = props => {
 }
 
 
-
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
@@ -56,17 +55,17 @@ const styles = StyleSheet.create({
 
     pickerContainer: {
         height: 40,
-        width: '50%',
+        width: '50%'
     },
 
     dropdownPicker: {
-        backgroundColor: '#fafafa',
+        backgroundColor: '#fafafa'
     },
 
     labelStyle: {
         fontSize: 15,
         textAlign: 'left',
-        color: '#000',
+        color: '#000'
     }
 })
 

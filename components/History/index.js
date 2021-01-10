@@ -7,7 +7,6 @@ const History = props => {
     const historyArr = Object.keys(props.history);
     const lastElem = Number(historyArr[historyArr.length - 1]);
 
-
     return (
         <View style={styles.container}>
             <FlatList
@@ -29,8 +28,9 @@ const History = props => {
 
 const styles = StyleSheet.create({
     container: {
-        height: '100%',
-        paddingTop: 80
+        height: '65%',
+        paddingTop: 75,
+        paddingBottom: 20
     }
 })
 
