@@ -10,16 +10,16 @@ import { // Actions
     handleInputUrl,
     handleDownload,
     handleSelect,
-    handleRemoveItem,
-    getHistoryList
+    removeHistoryItem,
+    getHistory
 } from '../store/actions';
 
 
 class MainView extends Component {
 
-    // async componentDidMount() {
-    //     await this.props.getHistoryList();
-    // }
+    componentDidMount() {
+        this.props.getHistory();
+    }
 
     render() {
         return (
@@ -35,7 +35,7 @@ class MainView extends Component {
                 />
                 <History
                     history={this.props.history}
-                    handleRemove={this.props.handleRemoveItem}
+                    handleRemove={this.props.removeHistoryItem}
                 />
             </View>
         )
@@ -56,9 +56,9 @@ const mapDispatchToProps = dispatch => {
         handleDownload: () => dispatch(handleDownload()),
 
         handleSelect: (opt, name) => dispatch(handleSelect(opt, name)),
-        handleRemoveItem: (id) => dispatch(handleRemoveItem(id)),
+        removeHistoryItem: id => dispatch(removeHistoryItem(id)),
 
-        getHistoryList: () => dispatch(getHistoryList())
+        getHistory: () => dispatch(getHistory())
     }
 }
 

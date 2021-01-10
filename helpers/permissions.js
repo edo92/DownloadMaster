@@ -1,9 +1,15 @@
 import * as Permissions from 'expo-permissions';
+import { Platform } from 'react-native';
+
 
 class Permission {
     static async requestPermissions() {
-        await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
-        // await Permissions.askAsync(Permissions.MEDIA_LIBRARY_WRITE_ONLY);
+        if (Platform.OS === 'ios') {
+            await Permissions.askAsync(Permissions.MEDIA_LIBRARY_WRITE_ONLY);
+        }
+        else {
+            await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+        }
     }
 }
 

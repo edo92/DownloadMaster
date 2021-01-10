@@ -1,7 +1,8 @@
-import { ADD_TO_HISTORY } from '../constants';
-import Downloader from '../../libs/downloader';
 import * as MediaLibrary from 'expo-media-library';
+import Downloader from '../../libs/downloader';
 
+import { ADD_TO_HISTORY } from '../constants';
+import { insertList, dropDatabase } from '../../helpers/db';
 
 export const handleDownload = () => {
     return async (dispatch, getState) => {
@@ -32,7 +33,6 @@ export const handleDownload = () => {
         })
 
         await MediaLibrary.createAssetAsync(file.uri);
-
-        // await insertList(info); // Save to db after downloaded
+        await insertList(info); // Save to db after downloaded
     }
 }

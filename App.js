@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import AppLoading from 'expo-app-loading';
-import Permissions from './helpers/permissions';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -8,6 +7,14 @@ import store from './store';
 import Main from './view/Main';
 import Layout from './layout';
 import loader from './load';
+
+import Permissions from './helpers/permissions';
+import { initDb } from './helpers/db';
+
+
+initDb().then(() => {
+    console.log('db connected')
+})
 
 
 class App extends Component {

@@ -3,7 +3,8 @@ import {
     SET_SETTINGS,
     REMOVE_HISTORY_ITEM,
     ADD_TO_HISTORY,
-    SET_PROGRESS
+    SET_PROGRESS,
+    SET_HISTORY_LIST
 } from '../constants';
 
 
@@ -15,24 +16,6 @@ const initialState = {
         quality: 'high'
     },
     history: {
-        gX3dfuNk8xVMc: {
-            "contentId": "gX3dfuNk8xVMc",
-            "format": "mp4",
-            "id": 8,
-            "quality": "high",
-            "thumbnail": "https://img.youtube.com/vi/gX3uNk8xVMc/0.jpg",
-            "title": "Cute Malamute Husky Puppy Howls Along",
-            "url": "https://www.youtube.com/watch?v=gX3uNk8xVMc",
-        },
-        gX3u2sNfk83xVMc: {
-            "contentId": "gX3uNfk8xVMc",
-            "format": "mp4",
-            "id": 8,
-            "quality": "high",
-            "thumbnail": "https://img.youtube.com/vi/gX3uNk8xVMc/0.jpg",
-            "title": "Cute Malamute Husky Puppy Howls Along",
-            "url": "https://www.youtube.com/watch?v=gX3uNk8xVMc",
-        }
     }
 }
 
@@ -55,8 +38,14 @@ const reducer = (state = initialState, action) => {
             }
         }
 
+        case SET_HISTORY_LIST: {
+            return {
+                ...state,
+                history: action.payload
+            }
+        }
 
-        case 'ADD_TO_HISTORY': {
+        case ADD_TO_HISTORY: {
             const { contentId } = action.payload;
             return {
                 ...state,
@@ -66,7 +55,7 @@ const reducer = (state = initialState, action) => {
                     [contentId]: {
                         ...state.history[contentId],
                         ...action.payload,
-                        progress: 0
+                        progress: 1
                     }
                 }
             }

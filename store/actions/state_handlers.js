@@ -1,5 +1,5 @@
 import {
-    HANDLE_INPUT, SET_SETTINGS, REMOVE_HISTORY_ITEM
+    HANDLE_INPUT, SET_SETTINGS
 } from '../constants';
 
 
@@ -18,11 +18,3 @@ export const handleSelect = ({ value, name }) => {
     }
 }
 
-export const handleRemoveItem = contentId => {
-    return dispatch => {
-        dispatch({
-            type: REMOVE_HISTORY_ITEM,
-            payload: { contentId }
-        })
-    }
-}
