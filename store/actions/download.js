@@ -31,8 +31,7 @@ export const handleDownload = () => {
             })
         })
 
-        console.log('file', file)
-        // await MediaLibrary.createAssetAsync(file.uri);
+        await MediaLibrary.createAssetAsync(file.uri);
 
         // await insertList(info); // Save to db after downloaded
     }

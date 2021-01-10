@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AppLoading from 'expo-app-loading';
+import Permissions from './helpers/permissions';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -13,6 +14,7 @@ class App extends Component {
     state = {}
 
     _onLoad = async () => {
+        await Permissions.requestPermissions();
         await loader.loadLibs();
         this._warningOff();
     }
