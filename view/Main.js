@@ -5,7 +5,6 @@ import { StyleSheet, View } from 'react-native';
 import InputForm from '../components/InputForm';
 import Preferences from '../components/Preferences';
 import History from '../components/History';
-import { Panel } from '../components/Custom';
 
 import { // Actions
     handleInputUrl,
@@ -25,25 +24,19 @@ class MainView extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Panel>
-                    <InputForm
-                        handleInput={this.props.handleInputUrl}
-                        handleSubmit={this.props.handleDownload}
-                        value={this.props.inputUrl}
-                    />
-                </Panel>
-                <Panel>
-                    <Preferences
-                        handleSelect={this.props.handleSelect}
-                        settings={this.props.settings}
-                    />
-                </Panel>
-                <Panel>
-                    <History
-                        history={this.props.history}
-                        handleRemove={this.props.handleRemoveItem}
-                    />
-                </Panel>
+                <InputForm
+                    handleInput={this.props.handleInputUrl}
+                    handleSubmit={this.props.handleDownload}
+                    value={this.props.inputUrl}
+                />
+                <Preferences
+                    handleSelect={this.props.handleSelect}
+                    settings={this.props.settings}
+                />
+                <History
+                    history={this.props.history}
+                    handleRemove={this.props.handleRemoveItem}
+                />
             </View>
         )
     }

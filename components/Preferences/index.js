@@ -1,17 +1,21 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Platform } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import options from './options';
 
 
 // Map options list
-const PreferencesMenu = props => (
-    <View style={styles.container}>
-        {options.map(option => (
-            <props.component key={option.name} option={option} />
-        ))}
-    </View>
-)
+const PreferencesMenu = props => {
+    const contStyle = Platform.OS === 'ios' ? styles.containerIos : {};
+
+    return (
+        <View style={[styles.container, contStyle]}>
+            {options.map(option => (
+                <props.component key={option.name} option={option} />
+            ))}
+        </View>
+    )
+}
 
 const Preferences = props => {
     return (
@@ -42,7 +46,12 @@ const Preferences = props => {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        paddingTop: 10
+    },
+
+    containerIos: {
+        zIndex: 10
     },
 
     pickerContainer: {
