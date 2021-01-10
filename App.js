@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import Main from './view/Main';
-import Layout from './layout';
 import loader from './load';
 
 import Permissions from './helpers/permissions';
@@ -51,9 +50,7 @@ class App extends Component {
 
         return (
             <Provider store={store()}>
-                <Layout>
-                    <Main />
-                </Layout>
+                <Main />
             </Provider>
         )
     }

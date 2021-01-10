@@ -1,5 +1,5 @@
 import {
-    HANDLE_INPUT, SET_SETTINGS
+    HANDLE_INPUT, SET_SETTINGS, REMOVE_ALERT
 } from '../constants';
 
 
@@ -18,3 +18,8 @@ export const handleSelect = ({ value, name }) => {
     }
 }
 
+export const removeAlert = () => {
+    return dispatch => {
+        dispatch({ type: REMOVE_ALERT });
+    }
+}

@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
 import IconMci from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntdProgress from '@ant-design/react-native/lib/progress';
 import helpers from '../../helpers/basic';
-import { Button } from 'native-base';
 
 const dimentions = Dimensions.get('window');
 
@@ -128,7 +127,7 @@ const styles = StyleSheet.create({
 
     image: {
         borderRadius: 2,
-        width: Math.round(dimentions.width * 0.40),
+        width: Math.round(dimentions.width * 0.42),
         height: Math.round(dimentions.width * 0.25),
         resizeMode: 'cover',
     }

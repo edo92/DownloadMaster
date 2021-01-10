@@ -4,7 +4,8 @@ import {
     REMOVE_HISTORY_ITEM,
     ADD_TO_HISTORY,
     SET_PROGRESS,
-    SET_HISTORY_LIST
+    SET_HISTORY_LIST,
+    REMOVE_ALERT
 } from '../constants';
 
 
@@ -15,8 +16,8 @@ const initialState = {
         format: 'mp4',
         quality: 'high'
     },
-    history: {
-    }
+    history: {},
+    alertMessages: ['testing message imp', 'test2']
 }
 
 const reducer = (state = initialState, action) => {
@@ -86,6 +87,15 @@ const reducer = (state = initialState, action) => {
                 }
             }
         }
+
+        case REMOVE_ALERT: {
+            state.alertMessages.shift();
+            return {
+                ...state,
+                alertMessages: state.alertMessages
+            }
+        }
+
 
         default:
             return state

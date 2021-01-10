@@ -2,6 +2,7 @@
 export {
     handleInputUrl,
     handleSelect,
+    removeAlert
 } from './state_handlers';
 
 // Handels database actions
