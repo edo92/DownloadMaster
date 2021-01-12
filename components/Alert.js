@@ -8,7 +8,12 @@ const NotifyContainer = (props) => {
 };
 
 class AlertNotify extends Component {
-  componentDidUpdate() {}
+  componentDidUpdate() {
+    setTimeout(() => {
+      // Remove err notification
+      this.props.remove();
+    }, 12000);
+  }
 
   render() {
     if (!this.props.alert) return <></>;
