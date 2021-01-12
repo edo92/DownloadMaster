@@ -4,6 +4,7 @@ const tslib_1 = require("tslib");
 const react_native_ytdl_1 = tslib_1.__importDefault(require("react-native-ytdl"));
 const axios_1 = tslib_1.__importDefault(require("axios"));
 const helpers_1 = require("./helpers");
+const validation_1 = tslib_1.__importDefault(require("./validation"));
 class GetherData {
     setContentTitle() {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
@@ -11,7 +12,7 @@ class GetherData {
                 this.title = yield (yield (axios_1.default.post(helpers_1.Endpoints.getTitle, { contentId: this.contentId }))).data.title;
             }
             catch (err) {
-                console.log('unable to get video info');
+                throw { error: 'unable to get video info' };
             }
         });
     }
@@ -20,8 +21,8 @@ class GetherData {
             try {
                 this.contentId = yield react_native_ytdl_1.default.getVideoID(this.url);
             }
-            catch (error) {
-                console.log('Video id is not valid');
+            catch (_) {
+                throw { error: 'Video id is not valid' };
             }
         });
     }
@@ -42,10 +43,19 @@ class Content extends GetherData {
     }
     initialize() {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            yield this.setContentId();
-            this.setContentExtention();
-            yield this.setContentTitle();
-            this.setContentThumbnail();
+            try {
+                // Validate content -> url/id
+                const validation = new validation_1.default(this);
+                yield validation.validate();
+                yield this.setContentId();
+                this.setContentExtention();
+                yield this.setContentTitle();
+                this.setContentThumbnail();
+            }
+            catch (err) {
+                throw err;
+            }
+            ;
         });
     }
 }

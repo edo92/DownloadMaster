@@ -10,10 +10,8 @@ export default class Ytdl extends Downloadable {
     settings: ISettings;
     content: IContent;
     downloadable: IDwl;
-    private initialized;
     constructor(input: Input);
-    private setInitStatus;
-    private initialize;
+    initialize(): Promise<void>;
     getContentInfo(): Promise<IContent>;
     downloadAsync(callback: ICbProgress): Promise<object | void>;
 }

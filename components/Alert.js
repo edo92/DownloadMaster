@@ -1,26 +1,51 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { Component } from 'react';
+import { Platform, StyleSheet, View } from 'react-native';
 import NoticeBar from '@ant-design/react-native/lib/notice-bar';
 
 
-const AlertNotify = props => {
+const NotifyContainer = props => {
+    const style = Platform.OS === 'ios' ? { zIndex: 100 } : {};
     return (
-        <View style={styles.container}>
-            <View style={styles.wrapper}>
-                <NoticeBar mode="closable" onPress={props.remove}>
-                    {props.alert}
-                </NoticeBar>
-            </View>
+        <View style={style}>
+            {props.children}
         </View>
     )
 }
 
+class AlertNotify extends Component {
+
+    componentDidUpdate() { }
+
+    render() {
+        if (!this.props.alert) return <></>;
+
+        return (
+            <NotifyContainer>
+                <View style={styles.wrapper}>
+                    <NoticeBar style={styles.notifyBar}
+                        mode="closable" onPress={this.props.remove}>
+                        {this.props.alert}
+                    </NoticeBar>
+                </View>
+            </NotifyContainer>
+        )
+    }
+}
+
 
 const styles = StyleSheet.create({
-    container: {},
+    container: {
+        zIndex: 100
+    },
     wrapper: {
         position: 'absolute',
         width: '100%'
+    },
+    notifyBar: {
+        backgroundColor: '#ee693f4a',
+        borderWidth: 0.5,
+        borderColor: 'red',
+        height: 45,
     }
 })
 

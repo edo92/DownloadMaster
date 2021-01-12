@@ -5,6 +5,7 @@ import {
     ADD_TO_HISTORY,
     SET_PROGRESS,
     SET_HISTORY_LIST,
+    ADD_ALERT,
     REMOVE_ALERT
 } from '../constants';
 
@@ -17,7 +18,7 @@ const initialState = {
         quality: 'high'
     },
     history: {},
-    alertMessages: ['testing message imp', 'test2']
+    alertMessages: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -85,6 +86,16 @@ const reducer = (state = initialState, action) => {
                         progress: progress
                     }
                 }
+            }
+        }
+
+        case ADD_ALERT: {
+            let newAlertList = [...state.alertMessages];
+            newAlertList.unshift(action.payload);
+
+            return {
+                ...state,
+                alertMessages: newAlertList
             }
         }
 

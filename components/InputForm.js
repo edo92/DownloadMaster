@@ -32,7 +32,7 @@ const InputForm = props => {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 50
+        paddingTop: 65
     },
     wrapper: {
         flexDirection: 'row',

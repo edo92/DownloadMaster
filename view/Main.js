@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
 
-import Layout from '../components/layout';
+import Layout from '../components/Layout';
 import InputForm from '../components/InputForm';
 import Preferences from '../components/Preferences';
 import History from '../components/History';
@@ -24,6 +24,7 @@ class MainView extends Component {
     }
 
     render() {
+
         return (
             <Layout
                 alertMessage={this.props.alert}
@@ -49,6 +50,7 @@ class MainView extends Component {
     }
 }
 
+
 const mapStateToProps = state => {
     return {
         inputUrl: state.main.inputUrl,
@@ -69,6 +71,7 @@ const mapDispatchToProps = dispatch => {
         removeAlert: () => dispatch(removeAlert())
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {

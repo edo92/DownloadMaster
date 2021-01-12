@@ -6,33 +6,6 @@ class Validation {
     constructor(content) {
         this.id = content.contentId;
         this.url = content.url;
-        this.isValid = this.validate();
-    }
-    basicValidation() {
-        // Basic validation (length and type)
-        if (typeof this.id === 'string' && this.id.length > 5)
-            return true;
-        return false;
-    }
-    validateId() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield react_native_ytdl_1.default.validateID(this.id);
-            }
-            catch (err) {
-                return false;
-            }
-        });
-    }
-    validateUrl() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield react_native_ytdl_1.default.validateURL(this.url);
-            }
-            catch (err) {
-                return false;
-            }
-        });
     }
     validateListAsync(list) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
@@ -40,18 +13,59 @@ class Validation {
             return !list.reduce((a, b) => ((a + b) - 1), 0);
         });
     }
+    basicValidation() {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            // Basic validation (length and type)
+            if (!this.url.length) {
+                // Need custom error class
+                throw { error: 'url is not valid' };
+            }
+        });
+    }
+    validateUrl() {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            try {
+                // Not working properly switch to regex
+                return yield react_native_ytdl_1.default.validateURL(this.url);
+            }
+            catch (err) {
+                throw err;
+            }
+            ;
+        });
+    }
+    validateId() {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield react_native_ytdl_1.default.validateID(this.id);
+            }
+            catch (err) {
+                throw err;
+            }
+            ;
+        });
+    }
     validate() {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             // First check for basic validation
-            if (!this.basicValidation()) {
-                this.isValid = false;
-                return false;
+            try {
+                yield this.basicValidation();
             }
+            catch (err) {
+                throw err;
+            }
+            ;
             // Validate list of validation funcs
-            return yield this.validateListAsync([
-                yield this.validateUrl(),
-                yield this.validateId()
-            ]);
+            try {
+                return yield this.validateListAsync([
+                    yield this.validateUrl(),
+                    yield this.validateId()
+                ]);
+            }
+            catch (err) {
+                throw err;
+            }
+            ;
         });
     }
 }

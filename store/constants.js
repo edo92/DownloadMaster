@@ -5,3 +5,4 @@ export const ADD_TO_HISTORY = 'ADD_TO_HISTORY';
 export const SET_PROGRESS = 'SET_PROGRESS';
 export const SET_HISTORY_LIST = 'SET_HISTORY_LIST';
 export const REMOVE_ALERT = 'REMOVE_ALERT';
+export const ADD_ALERT = 'ADD_ALERT';

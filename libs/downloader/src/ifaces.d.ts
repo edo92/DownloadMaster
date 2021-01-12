@@ -33,3 +33,7 @@ export interface IPorgress {
     current: number;
     downloaded: number;
 }
+export interface IVerify {
+    err?: string;
+    success?: string;
+}
