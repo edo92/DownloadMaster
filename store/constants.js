@@ -1,8 +1,8 @@
-export const HANDLE_INPUT = 'HANDLE_INPUT';
-export const SET_SETTINGS = 'SET_SETTINGS';
-export const REMOVE_HISTORY_ITEM = 'REMOVE_HISTORY_ITEM';
-export const ADD_TO_HISTORY = 'ADD_TO_HISTORY';
-export const SET_PROGRESS = 'SET_PROGRESS';
-export const SET_HISTORY_LIST = 'SET_HISTORY_LIST';
-export const REMOVE_ALERT = 'REMOVE_ALERT';
-export const ADD_ALERT = 'ADD_ALERT';
+export const HANDLE_INPUT = "HANDLE_INPUT";
+export const SET_SETTINGS = "SET_SETTINGS";
+export const REMOVE_HISTORY_ITEM = "REMOVE_HISTORY_ITEM";
+export const ADD_TO_HISTORY = "ADD_TO_HISTORY";
+export const SET_PROGRESS = "SET_PROGRESS";
+export const SET_HISTORY_LIST = "SET_HISTORY_LIST";
+export const REMOVE_ALERT = "REMOVE_ALERT";
+export const ADD_ALERT = "ADD_ALERT";
