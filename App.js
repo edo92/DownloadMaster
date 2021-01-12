@@ -1,59 +1,57 @@
-import React, { Component } from 'react';
-import AppLoading from 'expo-app-loading';
+import React, { Component } from "react";
+import AppLoading from "expo-app-loading";
 
-import { Provider } from 'react-redux';
-import store from './store';
+import { Provider } from "react-redux";
+import store from "./store";
 
-import Main from './view/Main';
-import loader from './load';
+import Main from "./view/Main";
+import loader from "./load";
 
-import Permissions from './helpers/permissions';
-import { initDb } from './helpers/db';
-
+import Permissions from "./helpers/permissions";
+import { initDb } from "./helpers/db";
 
 initDb().then(() => {
-    console.log('db connected')
-})
-
+  console.log("db connected");
+});
 
 class App extends Component {
-    state = {}
+  state = {};
 
-    _onLoad = async () => {
-        await Permissions.requestPermissions();
-        await loader.loadLibs();
-        this._warningOff();
+  _onLoad = async () => {
+    await Permissions.requestPermissions();
+    await loader.loadLibs();
+    this._warningOff();
+  };
+
+  _onFinish = async () => {
+    this.setState({ isReady: true });
+  };
+
+  _onError = (err) => {
+    this.setState({ err });
+  };
+
+  _warningOff = () => {
+    console.warn = () => null;
+  };
+
+  render() {
+    if (!this.state.isReady) {
+      return (
+        <AppLoading
+          startAsync={this._onLoad}
+          onFinish={this._onFinish}
+          onError={this._onError}
+        />
+      );
     }
 
-    _onFinish = async () => {
-        this.setState({ isReady: true });
-    }
-
-    _onError = err => {
-        this.setState({ err });
-    }
-
-    _warningOff = () => {
-        console.warn = () => null;
-    }
-
-    render() {
-        if (!this.state.isReady) {
-            return (
-                <AppLoading
-                    startAsync={this._onLoad}
-                    onFinish={this._onFinish}
-                    onError={this._onError}
-                />
-            )
-        }
-
-        return (
-            <Provider store={store()}>
-                <Main />
-            </Provider>
-        )
-    }
+    return (
+      <Provider store={store()}>
+        <Main />
+      </Provider>
+    );
+  }
 }
 
 export default App;
