@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     container: {
         height: '65%',
         paddingTop: 75,
-        paddingBottom: 20
+        paddingBottom: 50
     }
 })
 
