@@ -1,17 +1,8 @@
 // Handels inputs in state
-export {
-    handleInputUrl,
-    handleSelect,
-    removeAlert
-} from './state_handlers';
+export { handleInputUrl, handleSelect, removeAlert } from "./state_handlers";
 
 // Handels database actions
-export {
-    getHistory,
-    removeHistoryItem
-} from './db_handlers';
+export { getHistory, removeHistoryItem } from "./db_handlers";
 
 // Download api handler
-export { handleDownload } from './download.js';
-
-
+export { handleDownload } from "./download.js";
