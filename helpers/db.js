@@ -60,7 +60,7 @@ export const insertList = data => {
 
 export const removeItem = data => {
     let { contentId } = data;
-    console.log('contentId', contentId)
+
     const promise = new Promise((resolve, reject) => {
         db.transaction(tx => {
             tx.executeSql(
@@ -70,7 +70,6 @@ export const removeItem = data => {
                     resolve(res);
                 },
                 (_, err) => {
-                    console.log('err', err)
                     reject(err);
                 }
             );

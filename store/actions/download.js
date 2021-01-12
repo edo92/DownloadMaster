@@ -3,6 +3,7 @@ import Downloader from '../../libs/downloader';
 
 import { ADD_TO_HISTORY, SET_PROGRESS, ADD_ALERT } from '../constants';
 import { insertList } from '../../helpers/db';
+import Permission from '../../helpers/permissions';
 
 
 export const handleDownload = () => {
@@ -38,7 +39,31 @@ export const handleDownload = () => {
             })
         })
 
-        await MediaLibrary.createAssetAsync(file.uri);
-        await insertList(info); // Save to db after downloaded
+        // Request permission -> ignores if access already granted
+        const { granted } = await Permission.requestPermissions();
+
+        if (!granted) {
+            dispatch({
+                type: ADD_ALERT,
+                payload: {
+                    error: 'Media Access is required to save content to gallery'
+                }
+            })
+
+            return;
+        }
+
+        try {
+            await MediaLibrary.saveToLibraryAsync(file.uri);
+            await insertList(info); // Save to db after downloaded
+
+        } catch (err) {
+            dispatch({
+                type: ADD_ALERT,
+                payload: {
+                    error: 'Error occured when saving content'
+                }
+            })
+        }
     }
 }
