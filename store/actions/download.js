@@ -5,6 +5,10 @@ import { ADD_TO_HISTORY, SET_PROGRESS, ADD_ALERT } from "../constants";
 import { insertList } from "../../helpers/db";
 import Permission from "../../helpers/permissions";
 
+/*
+ * Download content with ytdl lib
+ */
+
 export const handleDownload = () => {
     return async (dispatch, getState) => {
         // Redux state
