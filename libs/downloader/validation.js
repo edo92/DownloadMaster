@@ -55,8 +55,7 @@ class Validation {
                 throw err;
             }
             ;
-            // Validate list of validation funcs
-            try {
+            try { // return is validation status
                 return yield this.validateListAsync([
                     yield this.validateUrl(),
                     yield this.validateId()

@@ -39,7 +39,7 @@ class Content extends GetherData {
         super();
         this.url = url;
         this.format = settings.format;
-        this.quality = settings.quality;
+        this.source = settings.source;
     }
     initialize() {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {

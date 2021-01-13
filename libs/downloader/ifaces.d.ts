@@ -1,6 +1,6 @@
 export interface ISettings {
     format: string;
-    quality: string;
+    source: string;
 }
 export interface Input {
     url: string;
@@ -10,6 +10,7 @@ export interface IContent {
     url: string;
     contentId: string;
     filename: string;
+    source: string;
     initialize?: () => any;
 }
 export interface IDwl {
@@ -36,4 +37,8 @@ export interface IPorgress {
 export interface IVerify {
     err?: string;
     success?: string;
+}
+export interface IDownloadable {
+    path: string;
+    content: IContent;
 }

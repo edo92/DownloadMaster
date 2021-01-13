@@ -1,7 +1,7 @@
 import { ISettings } from './ifaces';
 declare class GetherData {
     format: string;
-    quality: string;
+    source: string;
     filename: string;
     url: string;
     contentId: string;
@@ -16,7 +16,7 @@ export default class Content extends GetherData {
     contentId: string;
     url: string;
     format: string;
-    quality: string;
+    source: string;
     filename: string;
     protected settings: ISettings;
     constructor({ url, settings }: {
