@@ -14,7 +14,7 @@ const initialState = {
     progress: 0,
     settings: {
         format: "mp4",
-        source: "youtube",
+        source: "",
     },
     history: {},
     alertMessages: [],
@@ -51,6 +51,10 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 inputUrl: "",
+                settings: {
+                    ...state.settings,
+                    source: action.payload.source
+                },
                 history: {
                     ...state.history,
                     [contentId]: {

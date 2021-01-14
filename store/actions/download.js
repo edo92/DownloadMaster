@@ -31,7 +31,10 @@ export const handleDownload = () => {
         const info = await content.getContentInfo();
 
         // Add content info to state history
-        dispatch({ type: ADD_TO_HISTORY, payload: info });
+        dispatch({
+            type: ADD_TO_HISTORY,
+            payload: { ...info, source: 'youtube' }
+        });
 
         // Download content
         let file = await content.downloadAsync((progress) => {

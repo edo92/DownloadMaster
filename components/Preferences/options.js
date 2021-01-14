@@ -1,6 +1,6 @@
 import React from "react";
 import IconMci from "react-native-vector-icons/MaterialCommunityIcons";
-import IconMat from "react-native-vector-icons/MaterialIcons";
+import IconEnt from "react-native-vector-icons/Foundation";
 
 const options = [
     {
@@ -28,7 +28,7 @@ const options = [
                 label: "Webm Video",
                 value: "webm",
                 icon: () => (
-                    <IconMat name="video" size={19} color="rgb(238,105,63)" />
+                    <IconEnt name="play-video" size={19} color="rgb(238,105,63)" />
                 ),
             },
         ],
