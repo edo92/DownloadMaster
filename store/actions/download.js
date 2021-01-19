@@ -1,7 +1,7 @@
 import * as MediaLibrary from "expo-media-library";
 import Downloader from "../../libs/downloader";
 
-import { insertList } from "../../helpers/db";
+import { insertList, dropDatabase } from "../../helpers/db";
 import Permission from "../../helpers/permissions";
 
 import {
@@ -42,7 +42,7 @@ export const handleDownload = () => {
 
         // Content info
         const info = await content.getContentInfo();
-
+        console.log('info--->', info)
         // Add content info to state history
         dispatch({
             type: ADD_TO_HISTORY,
@@ -80,6 +80,7 @@ export const handleDownload = () => {
             await insertList(info);
 
         } catch (err) {
+            console.log('error', err)
             dispatch({
                 type: ADD_ALERT,
                 payload: {

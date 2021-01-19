@@ -8,21 +8,20 @@ import Preferences from "../components/Preferences";
 import History from "../components/History";
 
 import {
-  // Actions
-  handleInputUrl,
-  handleDownload,
-  handleSelect,
-  removeHistoryItem,
-  getHistory,
-  removeAlert,
+    // Actions
+    handleInputUrl,
+    handleDownload,
+    handleSelect,
+    removeHistoryItem,
+    getHistory,
+    removeAlert,
 } from "../store/actions";
 
 class MainView extends Component {
-  componentDidMount() {
-    this.props.getHistory();
-  }
+    componentDidMount() {
+        this.props.getHistory();
+    }
 
-<<<<<<< HEAD
     render() {
         return (
             <Layout alertMessage={this.props.alert} remove={this.props.removeAlert}>
@@ -30,13 +29,11 @@ class MainView extends Component {
                     <InputForm
                         handleInput={this.props.handleInputUrl}
                         handleSubmit={this.props.handleDownload}
-                        inputValue={this.props.inputUrl}
-                        onDownload={this.props.onDownload}
+                        value={this.props.inputUrl}
                     />
                     <Preferences
                         handleSelect={this.props.handleSelect}
                         settings={this.props.settings}
-
                     />
                     <History
                         history={this.props.history}
@@ -54,59 +51,26 @@ const mapStateToProps = (state) => {
         settings: state.main.settings,
         history: state.main.history,
         alert: state.main.alertMessages[0],
-        onDownload: state.main.onDownload
     };
-=======
-  render() {
-    return (
-      <Layout alertMessage={this.props.alert} remove={this.props.removeAlert}>
-        <View style={styles.container}>
-          <InputForm
-            handleInput={this.props.handleInputUrl}
-            handleSubmit={this.props.handleDownload}
-            value={this.props.inputUrl}
-          />
-          <Preferences
-            handleSelect={this.props.handleSelect}
-            settings={this.props.settings}
-          />
-          <History
-            history={this.props.history}
-            handleRemove={this.props.removeHistoryItem}
-          />
-        </View>
-      </Layout>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    inputUrl: state.main.inputUrl,
-    settings: state.main.settings,
-    history: state.main.history,
-    alert: state.main.alertMessages[0],
-  };
->>>>>>> c02bd16d9b5c47d2afe80519c609d497a5b9541e
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    handleInputUrl: (input) => dispatch(handleInputUrl(input)),
-    handleDownload: () => dispatch(handleDownload()),
-    getHistory: () => dispatch(getHistory()),
+    return {
+        handleInputUrl: (input) => dispatch(handleInputUrl(input)),
+        handleDownload: () => dispatch(handleDownload()),
+        getHistory: () => dispatch(getHistory()),
 
-    handleSelect: (opt, name) => dispatch(handleSelect(opt, name)),
-    removeHistoryItem: (id) => dispatch(removeHistoryItem(id)),
-    removeAlert: () => dispatch(removeAlert()),
-  };
+        handleSelect: (opt, name) => dispatch(handleSelect(opt, name)),
+        removeHistoryItem: (id) => dispatch(removeHistoryItem(id)),
+        removeAlert: () => dispatch(removeAlert()),
+    };
 };
 
 const styles = StyleSheet.create({
-  container: {
-    height: "100%",
-    padding: 10,
-  },
+    container: {
+        height: "100%",
+        padding: 10,
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainView);
