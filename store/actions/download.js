@@ -1,7 +1,7 @@
 import * as MediaLibrary from "expo-media-library";
 import Downloader from "../../libs/downloader";
 
-import { insertList, dropDatabase } from "../../helpers/db";
+import { insertList } from "../../helpers/db";
 import Permission from "../../helpers/permissions";
 
 import {
@@ -26,6 +26,8 @@ export const handleDownload = () => {
 
         // Redux state
         const state = getState().main;
+
+        // Download lib
         const content = new Downloader({
             url: state.inputUrl,
             settings: state.settings,
@@ -34,6 +36,7 @@ export const handleDownload = () => {
         // Initialize and verify input
         try {
             await content.initialize();
+
         } catch ({ error }) {
             // If initialization error set to err list
             dispatch({ type: ADD_ALERT, payload: error });
@@ -42,7 +45,7 @@ export const handleDownload = () => {
 
         // Content info
         const info = await content.getContentInfo();
-        console.log('info--->', info)
+
         // Add content info to state history
         dispatch({
             type: ADD_TO_HISTORY,
@@ -73,14 +76,13 @@ export const handleDownload = () => {
         }
 
         // Save image asset to libary
-        MediaLibrary.saveToLibraryAsync(file.uri);
+        await MediaLibrary.saveToLibraryAsync(file.uri);
 
         try {
             // Insert containet to db
             await insertList(info);
 
         } catch (err) {
-            console.log('error', err)
             dispatch({
                 type: ADD_ALERT,
                 payload: {
