@@ -1,9 +1,16 @@
 import * as MediaLibrary from "expo-media-library";
 import Downloader from "../../libs/downloader";
 
-import { ADD_TO_HISTORY, SET_PROGRESS, ADD_ALERT } from "../constants";
 import { insertList } from "../../helpers/db";
 import Permission from "../../helpers/permissions";
+
+import {
+    ADD_TO_HISTORY,
+    SET_PROGRESS,
+    ADD_ALERT,
+    ON_DOWNLOAD
+} from "../constants";
+
 
 /*
  * Download content with ytdl lib
@@ -11,6 +18,12 @@ import Permission from "../../helpers/permissions";
 
 export const handleDownload = () => {
     return async (dispatch, getState) => {
+
+        dispatch({
+            type: ON_DOWNLOAD,
+            payload: true
+        });
+
         // Redux state
         const state = getState().main;
         const content = new Downloader({
@@ -27,13 +40,13 @@ export const handleDownload = () => {
             return;
         }
 
-        // Content information
+        // Content info
         const info = await content.getContentInfo();
 
         // Add content info to state history
         dispatch({
             type: ADD_TO_HISTORY,
-            payload: { ...info, source: 'youtube' }
+            payload: info
         });
 
         // Download content
@@ -46,28 +59,31 @@ export const handleDownload = () => {
         });
 
         // Request permission -> ignores if access already granted
-        const { granted } = await Permission.requestPermissions();
+        try {
+            await Permission.requestPermissions();
 
-        if (!granted) {
+        } catch (err) {
             dispatch({
                 type: ADD_ALERT,
                 payload: {
                     error: "Media Access is required to save content to gallery",
                 },
             });
-
             return;
         }
 
+        // Save image asset to libary
+        MediaLibrary.saveToLibraryAsync(file.uri);
+
         try {
-            await MediaLibrary.saveToLibraryAsync(file.uri);
-            await insertList(info); // Save to db after downloaded
+            // Insert containet to db
+            await insertList(info);
 
         } catch (err) {
             dispatch({
                 type: ADD_ALERT,
                 payload: {
-                    error: "Error occured when saving content",
+                    error: "Error occured while saving",
                 },
             });
         }

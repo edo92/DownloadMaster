@@ -39,13 +39,13 @@ class Content extends GetherData {
         super();
         this.url = url;
         this.format = settings.format;
-        this.source = settings.source;
+        this.source = settings.source || 'youtube';
     }
     initialize() {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             try {
                 // Validate content -> url/id
-                const validation = new validation_1.default(this);
+                const validation = new validation_1.default(this); // this => Content data contentId, url,format, ....
                 yield validation.validate();
                 yield this.setContentId();
                 this.setContentExtention();

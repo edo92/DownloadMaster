@@ -7,11 +7,13 @@ import {
     SET_HISTORY_LIST,
     ADD_ALERT,
     REMOVE_ALERT,
+    ON_DOWNLOAD
 } from "../constants";
 
 const initialState = {
     inputUrl: "",
     progress: 0,
+    onDownload: false,
     settings: {
         format: "mp4",
         source: "",
@@ -50,6 +52,7 @@ const reducer = (state = initialState, action) => {
             const { contentId } = action.payload;
             return {
                 ...state,
+                onDownload: false,
                 inputUrl: "",
                 settings: {
                     ...state.settings,
@@ -94,12 +97,20 @@ const reducer = (state = initialState, action) => {
 
         case ADD_ALERT: {
             let newAlertList = [...state.alertMessages];
-            newAlertList.unshift(action.payload);
+            newAlertList.unshift(action.payload.error);
 
             return {
                 ...state,
                 alertMessages: newAlertList,
+                onDownload: false
             };
+        }
+
+        case ON_DOWNLOAD: {
+            return {
+                ...state,
+                onDownload: action.payload
+            }
         }
 
         case REMOVE_ALERT: {

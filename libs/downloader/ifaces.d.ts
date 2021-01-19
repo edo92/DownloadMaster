@@ -1,6 +1,6 @@
 export interface ISettings {
     format: string;
-    source: string;
+    quality: string;
 }
 export interface Input {
     url: string;

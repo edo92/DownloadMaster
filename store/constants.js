@@ -6,3 +6,4 @@ export const SET_PROGRESS = "SET_PROGRESS";
 export const SET_HISTORY_LIST = "SET_HISTORY_LIST";
 export const REMOVE_ALERT = "REMOVE_ALERT";
 export const ADD_ALERT = "ADD_ALERT";
+export const ON_DOWNLOAD = "ON_DOWNLOAD";

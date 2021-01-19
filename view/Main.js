@@ -29,11 +29,13 @@ class MainView extends Component {
                     <InputForm
                         handleInput={this.props.handleInputUrl}
                         handleSubmit={this.props.handleDownload}
-                        value={this.props.inputUrl}
+                        inputValue={this.props.inputUrl}
+                        onDownload={this.props.onDownload}
                     />
                     <Preferences
                         handleSelect={this.props.handleSelect}
                         settings={this.props.settings}
+
                     />
                     <History
                         history={this.props.history}
@@ -51,6 +53,7 @@ const mapStateToProps = (state) => {
         settings: state.main.settings,
         history: state.main.history,
         alert: state.main.alertMessages[0],
+        onDownload: state.main.onDownload
     };
 };
 
